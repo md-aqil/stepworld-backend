@@ -133,7 +133,7 @@ type ApiCourse = {
   specializations: string | null; badge: string | null; badgeColor: string | null;
   description: string | null; collegeId: string;
   category?: 'pg' | 'exec' | 'ug' | 'cert' | null;
-  college?: { slug: string; name: string; logoGradient: string; initials: string };
+  college?: { slug: string; name: string; shortName?: string | null; logoGradient: string; initials: string };
 };
 
 type Category = { id: 'pg' | 'exec' | 'ug' | 'cert'; title: string; subtitle: string; keywords: RegExp[] };
