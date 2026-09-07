@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { apiUrl } from '../lib/api';
 import {
   Plus,
   Pencil,
@@ -79,7 +80,7 @@ type College = {
 type Toast = { kind: 'success' | 'error'; message: string };
 
 const api = async <T,>(path: string, init?: RequestInit): Promise<T> => {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(apiUrl(`/api${path}`), {
     headers: { 'Content-Type': 'application/json' },
     ...init,
   });

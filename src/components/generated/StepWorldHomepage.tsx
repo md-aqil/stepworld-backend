@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from '../../App';
+import { apiUrl } from '../../lib/api';
 import {
   ChevronDown,
   Menu,
@@ -419,8 +419,8 @@ export const StepWorldHomepage = () => {
     const load = async () => {
       try {
         const [c, co] = await Promise.all([
-          fetch('/api/colleges').then((r) => r.json()),
-          fetch('/api/courses').then((r) => r.json()),
+          fetch(apiUrl('/api/colleges')).then((r) => r.json()),
+          fetch(apiUrl('/api/courses')).then((r) => r.json()),
         ]);
         if (!cancelled) {
           setColleges(c);
@@ -445,7 +445,7 @@ export const StepWorldHomepage = () => {
       {error && (
         <div className="mx-auto max-w-7xl px-4 pt-6">
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-800">
-            Could not reach backend ({error}). Make sure the backend is running on http://localhost:4000.
+            Could not reach backend ({error}).
           </div>
         </div>
       )}

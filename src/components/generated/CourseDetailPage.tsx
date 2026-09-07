@@ -765,7 +765,7 @@ export const CourseDetailPage = ({
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`/api/colleges/${collegeSlug}`, { signal: controller.signal });
+        const res = await fetch(apiUrl(`/api/colleges/${collegeSlug}`), { signal: controller.signal });
         if (!res.ok) throw new Error(`College HTTP ${res.status}`);
         const data: ApiCollege = await res.json();
         setCollege(data);
@@ -777,7 +777,7 @@ export const CourseDetailPage = ({
         if ((err as Error).name !== 'AbortError') setError((err as Error).message);
       }
       try {
-        const res = await fetch(`/api/courses/${courseSlug}`, { signal: controller.signal });
+        const res = await fetch(apiUrl(`/api/courses/${courseSlug}`), { signal: controller.signal });
         if (res.ok) {
           const data: ApiCourse = await res.json();
           setCourse(data);

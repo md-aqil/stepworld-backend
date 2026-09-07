@@ -982,7 +982,7 @@ export const DetailPage = ({ slug = 'alliance-university-online' }: { slug?: str
     const controller = new AbortController();
     const load = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/colleges/${slug}`, {
+        const res = await fetch(apiUrl(`/api/colleges/${slug}`), {
           signal: controller.signal,
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
