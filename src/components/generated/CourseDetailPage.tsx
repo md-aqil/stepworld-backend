@@ -1,0 +1,822 @@
+import React, { useState } from 'react';
+import {
+  Search,
+  ChevronDown,
+  Menu,
+  X,
+  IndianRupee,
+  Clock,
+  GraduationCap,
+  Award,
+  Briefcase,
+  FileText,
+  BadgeCheck,
+  Building2,
+  Star,
+  Phone,
+  Mail,
+  Sparkles,
+  CheckCircle2,
+  Calendar,
+  Users,
+  Globe2,
+  ArrowRight,
+} from 'lucide-react';
+import ApplyModal from './ApplyModal';
+
+const GRADIENT_TEXT =
+  'bg-clip-text text-transparent bg-gradient-to-r from-green-500 via-yellow-500 via-orange-500 via-red-500 via-purple-500 to-blue-500';
+const GRADIENT_BG =
+  'bg-gradient-to-r from-green-500 via-yellow-500 via-orange-500 via-red-500 via-purple-500 to-blue-500';
+
+type StepWorldLogoProps = {
+  height: number;
+  variant: 'nav' | 'footer';
+};
+
+const StepWorldLogo = ({ height, variant }: StepWorldLogoProps) => {
+  const idPrefix = variant === 'nav' ? 'stepworld-nav' : 'stepworld-footer';
+  const taglineColor = variant === 'nav' ? '#475569' : '#CBD5E1';
+  return (
+    <svg
+      aria-labelledby={`${idPrefix}-title`}
+      role="img"
+      viewBox="0 0 330 92"
+      className="block w-auto max-w-[220px] sm:max-w-none"
+      style={{ height }}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title id={`${idPrefix}-title`}>StepWorld — Step Your Career With Us</title>
+      <defs>
+        <linearGradient id={`${idPrefix}-swoosh`} x1="10" y1="28" x2="252" y2="24" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#16A34A" />
+          <stop offset="0.24" stopColor="#FACC15" />
+          <stop offset="0.45" stopColor="#F97316" />
+          <stop offset="0.66" stopColor="#E11D48" />
+          <stop offset="1" stopColor="#7C3AED" />
+        </linearGradient>
+        <linearGradient id={`${idPrefix}-metal`} x1="78" y1="38" x2="235" y2="82" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#FFFFFF" />
+          <stop offset="0.38" stopColor="#F8FAFC" />
+          <stop offset="0.64" stopColor="#CBD5E1" />
+          <stop offset="1" stopColor="#FFFFFF" />
+        </linearGradient>
+        <linearGradient id={`${idPrefix}-figure`} x1="236" y1="18" x2="314" y2="84" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#22D3EE" />
+          <stop offset="0.52" stopColor="#2563EB" />
+          <stop offset="1" stopColor="#7C3AED" />
+        </linearGradient>
+        <filter id={`${idPrefix}-soft-shadow`} x="-20%" y="-30%" width="140%" height="170%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.26" />
+        </filter>
+      </defs>
+      <path d="M8 29C70 50 139 9 226 13C172 18 119 44 62 42C40 41 23 36 8 29Z" fill={`url(#${idPrefix}-swoosh)`} opacity="0.9" />
+      <path d="M86 42C141 20 197 20 260 26C204 32 154 52 100 51C92 51 88 48 86 42Z" fill={`url(#${idPrefix}-swoosh)`} opacity="0.82" />
+      <text x="12" y="64" fill={`url(#${idPrefix}-metal)`} filter={`url(#${idPrefix}-soft-shadow)`} fontFamily="Arial Black, Inter, sans-serif" fontSize="37" fontWeight="900" letterSpacing="-2.2">
+        STEPWORLD
+      </text>
+      <text x="36" y="84" fill={taglineColor} fontFamily="Inter, Arial, sans-serif" fontSize="13" fontWeight="700" letterSpacing="1.2">
+        Step Your Career With Us
+      </text>
+      <path d="M247 21C269 42 286 40 318 22C299 48 279 62 248 68C234 71 228 78 219 88C222 65 231 51 246 44C251 40 252 31 247 21Z" fill={`url(#${idPrefix}-figure)`} opacity="0.94" />
+      <circle cx="282" cy="18" r="8" fill={`url(#${idPrefix}-figure)`} />
+      <path d="M276 27C263 39 251 51 235 54C253 58 271 49 286 33L276 27Z" fill={`url(#${idPrefix}-figure)`} />
+      <path d="M288 54C302 62 311 71 322 87C301 83 285 76 271 61L288 54Z" fill={`url(#${idPrefix}-figure)`} />
+    </svg>
+  );
+};
+
+const Navbar = ({ collegeSlug }: { collegeSlug?: string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <nav className="sticky top-0 z-50 w-full bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <a href="/" className="flex items-center flex-shrink-0 cursor-pointer">
+            <StepWorldLogo height={48} variant="nav" />
+          </a>
+          <div className="hidden lg:flex items-center space-x-8">
+            <button className="flex items-center text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              Explore Programs <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            <button className="flex items-center text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              Top Universities <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            <button className="flex items-center text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              Tools <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            <button className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              About Us
+            </button>
+            <a href="/admin" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+              Admin
+            </a>
+          </div>
+          <div className="hidden lg:flex items-center space-x-4">
+            <a
+              href={collegeSlug ? `/university/${collegeSlug}` : '/#top-colleges'}
+              className="px-4 py-2 text-sm font-bold text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              View Details
+            </a>
+            <button className="px-5 py-2 text-sm font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors shadow-sm shadow-blue-200">
+              Sign In
+            </button>
+            <button className="text-slate-500 hover:text-blue-600 transition-colors">
+              <Search className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="lg:hidden flex items-center">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-600 hover:text-blue-600 focus:outline-none">
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+type ApiApproval = { id: string; label: string };
+type ApiCourse = {
+  id: string;
+  slug: string;
+  title: string;
+  fee: string;
+  duration: string;
+  specializations: string | null;
+  badge: string | null;
+  badgeColor: string | null;
+  description: string | null;
+  eligibility: string | null;
+  careerOutcomes: string | null;
+  avgSalary: string | null;
+  syllabus: { semester: number; subjects: string[] }[] | null;
+  skills: string | null;
+  jobRoles: string | null;
+  reviews: { id: string; name: string; initials: string; color: string; rating: number; text: string }[];
+};
+type ApiCollege = {
+  id: string;
+  slug: string;
+  name: string;
+  shortName: string | null;
+  location: string;
+  fullAddress: string | null;
+  initials: string;
+  logoGradient: string;
+  rating: number;
+  ratingCount: string | null;
+  nirfRank: string | null;
+  qsRank: string | null;
+  approvals: { approval: ApiApproval }[];
+};
+
+const FALLBACK_COURSE: ApiCourse = {
+  id: 'fallback',
+  slug: 'online-mba',
+  title: 'Online MBA',
+  fee: '₹1,60,000',
+  duration: '2 Years',
+  specializations: '6 Specializations',
+  badge: '⚡ Trending',
+  badgeColor: 'bg-blue-100 text-blue-700',
+  description:
+    'A two-year industry-aligned MBA designed for working professionals. Build leadership, strategy and analytical skills with UGC-approved credentials.',
+  eligibility: "Bachelor's degree with 50%+ marks from a recognized university.",
+  careerOutcomes: 'Graduates move into mid-to-senior roles across product, finance, marketing and operations.',
+  avgSalary: '₹6.5 - ₹14 LPA',
+  syllabus: null,
+  skills: 'Leadership, Strategic Thinking, Financial Modeling',
+  jobRoles: 'Product Manager, Business Analyst',
+  reviews: [],
+};
+
+const FALLBACK_COLLEGE: ApiCollege = {
+  id: 'fallback',
+  slug: 'alliance-university-online',
+  name: 'Alliance University Online',
+  shortName: 'Alliance University Online',
+  location: 'Bengaluru, Karnataka',
+  fullAddress: 'Central Campus, Bengaluru',
+  initials: 'AU',
+  logoGradient: 'from-orange-500 via-rose-500 to-purple-600',
+  rating: 4.1,
+  ratingCount: '7 Reviews',
+  nirfRank: '71',
+  qsRank: 'Top 1% in South Asia',
+  approvals: [
+    { approval: { id: 'ugc', label: 'UGC' } },
+    { approval: { id: 'naac', label: 'NAAC A+' } },
+    { approval: { id: 'aicte', label: 'AICTE' } },
+    { approval: { id: 'nirf', label: 'NIRF' } },
+  ],
+};
+
+const SPECIALIZATIONS_BY_TITLE: Record<string, string[]> = {
+  'Online MBA': ['Finance', 'Marketing', 'HR', 'Operations', 'Business Analytics', 'IT Management'],
+  'Online BBA': ['Finance', 'Marketing', 'Entrepreneurship', 'Digital Marketing'],
+  'Online B.Com': ['Finance', 'Accounting', 'Banking & Insurance'],
+  'Online B.Com (Hons)': ['Finance & Accounting', 'Business Analytics', 'International Finance'],
+};
+
+const FALLBACK_SPECIALIZATIONS = ['Core', 'Electives', 'Capstone Project'];
+
+const Hero = ({ course, college, onApply }: { course: ApiCourse; college: ApiCollege; onApply: () => void }) => (
+  <section className="relative isolate w-full overflow-hidden bg-[#0F172A]">
+    <svg className="absolute -right-24 -top-20 h-72 w-[560px] opacity-20 blur-[1px] sm:h-80 sm:w-[680px] lg:-right-12 lg:top-[-104px] lg:h-[420px] lg:w-[860px]" viewBox="0 0 860 420" fill="none" aria-hidden="true">
+      <path d="M10 294C164 175 304 134 451 153C565 168 666 129 848 12" stroke="url(#course-arc-primary)" strokeWidth="26" strokeLinecap="round" />
+      <path d="M2 342C165 250 307 217 459 234C582 248 689 202 858 86" stroke="url(#course-arc-secondary)" strokeWidth="14" strokeLinecap="round" />
+      <defs>
+        <linearGradient id="course-arc-primary" x1="10" y1="342" x2="858" y2="18" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#16A34A" />
+          <stop offset="0.35" stopColor="#F97316" />
+          <stop offset="0.67" stopColor="#E11D48" />
+          <stop offset="1" stopColor="#0EA5E9" />
+        </linearGradient>
+        <linearGradient id="course-arc-secondary" x1="2" y1="352" x2="858" y2="86" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#22C55E" />
+          <stop offset="0.5" stopColor="#FACC15" />
+          <stop offset="1" stopColor="#2563EB" />
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-300">
+        <a href="/" className="hover:text-white transition-colors">Home</a>
+        <span className="text-slate-500">›</span>
+        <a href={`/university/${college.slug}`} className="hover:text-white transition-colors">{college.shortName ?? college.name}</a>
+        <span className="text-slate-500">›</span>
+        <span className="text-white">{course.title}</span>
+      </nav>
+
+      <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+        <div>
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-300/25 bg-white/[0.07] px-4 py-2 shadow-sm shadow-black/20 backdrop-blur-md">
+            <Sparkles className="h-4 w-4 text-orange-300" aria-hidden="true" />
+            <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-orange-300">Online Program · 2026 Intake Open</span>
+          </div>
+
+          {course.badge && course.badgeColor && (
+            <span className={`mb-4 inline-flex rounded-full px-3 py-1 text-xs font-black uppercase tracking-wide ${course.badgeColor}`}>
+              {course.badge}
+            </span>
+          )}
+
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight text-white">
+            {course.title} <span className={GRADIENT_TEXT}>by {college.shortName ?? college.name}</span>
+          </h1>
+
+          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm font-semibold text-slate-300">
+            <span className="inline-flex items-center gap-1.5"><Building2 className="h-4 w-4" /> {college.location}</span>
+            <span className="hidden sm:inline text-slate-500">•</span>
+            <span className="inline-flex items-center gap-1.5">
+              <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+              <strong className="text-white">{college.rating}</strong>
+              <span>({college.ratingCount ?? '0 Reviews'})</span>
+            </span>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <Stat icon={IndianRupee} label="Total Fees" value={course.fee} />
+            <Stat icon={Clock} label="Duration" value={course.duration} />
+            <Stat icon={GraduationCap} label="Specializations" value={course.specializations ?? 'Multiple'} />
+            <Stat icon={Award} label="Approvals" value={`${college.approvals.length}+`} />
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            {college.approvals.map(({ approval }) => (
+              <span key={approval.id} className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1.5 text-xs font-bold text-white backdrop-blur-sm">
+                <BadgeCheck className="h-3.5 w-3.5 text-emerald-300" /> {approval.label}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <aside className="rounded-3xl border border-white/12 bg-white p-6 shadow-2xl shadow-black/40">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-black text-amber-700">
+            <Sparkles className="h-3.5 w-3.5" /> Apply for 2026 Intake
+          </div>
+          <h2 className="text-lg font-extrabold text-slate-900">Get Free Counselling</h2>
+          <p className="mt-1 text-sm text-slate-600">Talk to an advisor for {course.title} at {college.shortName ?? college.name}.</p>
+
+          <div className="mt-5 space-y-3">
+            <label className="block">
+              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Full Name</span>
+              <input type="text" placeholder="e.g. Rahul Sharma" className="mt-1 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+            </label>
+            <label className="block">
+              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Mobile Number</span>
+              <input type="tel" placeholder="+91 9876543210" className="mt-1 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+            </label>
+          </div>
+
+          <button onClick={onApply} className={`mt-5 w-full rounded-xl py-3 text-sm font-black uppercase tracking-[0.12em] text-white shadow-lg shadow-blue-900/25 transition-transform hover:-translate-y-0.5 ${GRADIENT_BG}`}>
+            Apply Now
+          </button>
+          <button className="mt-3 w-full rounded-xl border-2 border-blue-600 py-3 text-sm font-bold text-blue-600 transition-colors hover:bg-blue-50">
+            Download Brochure
+          </button>
+
+          <div className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 text-xs font-semibold text-slate-600">
+            <span className="inline-flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-blue-600" /> 1800-420-5757</span>
+            <span className="inline-flex items-center gap-1.5"><Mail className="h-3.5 w-3.5 text-blue-600" /> info@stepworld.com</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+);
+
+const Stat = ({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) => (
+  <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur-sm">
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
+      <Icon className="h-5 w-5" />
+    </span>
+    <div className="min-w-0">
+      <p className="text-[11px] font-bold uppercase tracking-wide text-slate-300">{label}</p>
+      <p className="truncate text-base font-black text-white">{value}</p>
+    </div>
+  </div>
+);
+
+const OverviewSection = ({ course, college, onApply }: { course: ApiCourse; college: ApiCollege; onApply: () => void }) => {
+  const specs = SPECIALIZATIONS_BY_TITLE[course.title] ?? FALLBACK_SPECIALIZATIONS;
+  const [active, setActive] = useState<string>(specs[0] ?? '');
+  return (
+  <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
+    <div className="space-y-8">
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="text-2xl font-extrabold text-slate-900">About the {course.title}</h2>
+        <p className="mt-3 text-base leading-7 text-slate-600">
+          {course.description ??
+            `The ${course.title} program by ${college.name} is designed for working professionals and graduates who want a UGC-recognized degree with real-world outcomes. Learn through live sessions, case-based teaching, and an industry-aligned curriculum.`}
+        </p>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="text-2xl font-extrabold text-slate-900">Specializations Offered</h2>
+        <p className="mt-1 text-sm text-slate-600">Pick a track that matches your career goals.</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {specs.map((s) => {
+            const isActive = s === active;
+            return (
+              <button key={s} type="button" onClick={() => setActive(s)}
+                className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-bold transition-colors ${
+                  isActive ? 'border-blue-600 bg-blue-600 text-white' : 'border-blue-100 bg-blue-50 text-blue-700 hover:border-blue-300'
+                }`}>
+                <CheckCircle2 className="h-4 w-4" /> {s}
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-4 rounded-xl border border-blue-100 bg-blue-50/50 p-4 text-sm text-slate-700">
+          <p><strong className="font-black text-slate-900">{active}</strong> track focuses on industry-specific case studies, capstone projects, and mentorship from senior practitioners in the field.</p>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="text-2xl font-extrabold text-slate-900">Key Highlights</h2>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          {[
+            { icon: GraduationCap, t: 'Industry-Aligned Curriculum', d: 'Built with input from CXOs and academic experts.' },
+            { icon: Users, t: 'Live Weekend Classes', d: 'Designed for working professionals.' },
+            { icon: Globe2, t: '24/7 LMS Access', d: 'Recorded lectures, notes, and assessments.' },
+            { icon: Briefcase, t: 'Placement Support', d: 'Resume, interview prep, and 3000+ hiring partners.' },
+          ].map((h) => {
+            const Icon = h.icon;
+            return (
+              <li key={h.t} className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 p-4">
+                <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-white ${GRADIENT_BG}`}>
+                  <Icon className="h-4 w-4" />
+                </span>
+                <div>
+                  <p className="text-sm font-extrabold text-slate-900">{h.t}</p>
+                  <p className="text-xs text-slate-600">{h.d}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="text-2xl font-extrabold text-slate-900">Fee Structure</h2>
+        <div className="mt-4 overflow-hidden rounded-xl border border-slate-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50">
+              <tr className="text-xs font-black uppercase tracking-wide text-slate-600">
+                <th className="px-5 py-3">Particulars</th>
+                <th className="px-5 py-3">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Program Fees', course.fee],
+                ['Duration', course.duration],
+                ['EMI Starting', `₹${Math.round(parseInt(course.fee.replace(/[^\d]/g, '') || '0', 10) / 24).toLocaleString('en-IN')}/mo`],
+                ['Mode', '100% Online'],
+              ].map(([k, v], i) => (
+                <tr key={k} className={`border-t border-slate-100 ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
+                  <td className="px-5 py-4 font-bold text-slate-700">{k}</td>
+                  <td className="px-5 py-4 text-slate-800">{v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="text-2xl font-extrabold text-slate-900">Education Loan / EMI</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Flexible EMI options and education loan support available through 20+ lenders, sanctioned in less than 24 hours.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {['20+ Lenders', 'Sanctioned < 24 hrs', 'No Bank Visit'].map((t) => (
+            <div key={t} className="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-center text-sm font-extrabold text-emerald-700">
+              {t}
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+
+    <aside className="space-y-6">
+      <div className="rounded-2xl border border-blue-100 bg-[#F0F7FF] p-6 shadow-sm">
+        <h3 className="text-base font-extrabold text-slate-900">Quick Facts</h3>
+        <ul className="mt-4 space-y-3 text-sm">
+          <li className="flex justify-between"><span className="text-slate-500">Program</span><span className="font-bold text-slate-900">{course.title}</span></li>
+          <li className="flex justify-between"><span className="text-slate-500">University</span><span className="font-bold text-slate-900">{college.shortName ?? college.name}</span></li>
+          <li className="flex justify-between"><span className="text-slate-500">Total Fees</span><span className="font-bold text-slate-900">{course.fee}</span></li>
+          <li className="flex justify-between"><span className="text-slate-500">Duration</span><span className="font-bold text-slate-900">{course.duration}</span></li>
+          <li className="flex justify-between"><span className="text-slate-500">Mode</span><span className="font-bold text-slate-900">Online</span></li>
+        </ul>
+        <button onClick={onApply} className={`mt-5 w-full rounded-xl py-3 text-sm font-black uppercase tracking-[0.12em] text-white shadow-lg ${GRADIENT_BG}`}>
+          Apply Now
+        </button>
+      </div>
+
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h3 className="text-base font-extrabold text-slate-900">Intake Calendar 2026</h3>
+        <ul className="mt-4 space-y-3 text-sm">
+          {[
+            { label: 'Application Deadline', value: 'Rolling' },
+            { label: 'Next Batch Starts', value: 'Jan 2026' },
+            { label: 'Counselling Sessions', value: 'Mon–Sat' },
+          ].map((row) => (
+            <li key={row.label} className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-3 py-2">
+              <Calendar className="h-4 w-4 text-blue-600" />
+              <div className="flex-1">
+                <p className="text-xs text-slate-500">{row.label}</p>
+                <p className="text-sm font-bold text-slate-800">{row.value}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
+        <h3 className="text-base font-extrabold text-amber-900">View full college details</h3>
+        <p className="mt-1 text-sm text-amber-800">See approvals, NIRF rank, all programs & faculty.</p>
+        <a
+          href={`/university/${college.slug}`}
+          className={`mt-4 block w-full rounded-xl py-3 text-center text-sm font-black uppercase tracking-[0.12em] text-white shadow-lg ${GRADIENT_BG}`}
+        >
+          View Details
+        </a>
+      </div>
+
+      <a href={`/university/${college.slug}`} className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-colors hover:border-blue-200">
+        <p className="text-xs font-black uppercase tracking-wide text-slate-500">About the university</p>
+        <p className="mt-1 text-sm font-extrabold text-slate-900">{college.name}</p>
+        <p className="mt-1 inline-flex items-center gap-1 text-xs font-bold text-blue-600">
+          View college page <ArrowRight className="h-3 w-3" />
+        </p>
+      </a>
+    </aside>
+  </div>
+  );
+};
+
+const SyllabusSection = ({ course }: { course: ApiCourse }) => {
+  const [openSem, setOpenSem] = useState<number | null>(1);
+  if (!course.syllabus || course.syllabus.length === 0) return null;
+  return (
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-extrabold text-slate-900">Syllabus & Curriculum</h2>
+          <p className="mt-1 text-sm text-slate-600">Semester-wise breakdown of subjects you'll study.</p>
+        </div>
+        <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">{course.syllabus.length} Semesters</span>
+      </div>
+      <div className="space-y-2">
+        {course.syllabus.map((sem) => {
+          const isOpen = openSem === sem.semester;
+          return (
+            <div key={sem.semester} className="rounded-xl border border-slate-200 bg-slate-50">
+              <button onClick={() => setOpenSem(isOpen ? null : sem.semester)} className="flex w-full items-center justify-between gap-3 p-4 text-left">
+                <div className="flex items-center gap-3">
+                  <span className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-black text-white ${GRADIENT_BG}`}>{sem.semester}</span>
+                  <span className="text-base font-extrabold text-slate-900">Semester {sem.semester}</span>
+                </div>
+                <span className="text-xs font-bold text-slate-500">{sem.subjects.length} subjects</span>
+              </button>
+              {isOpen && (
+                <ul className="grid gap-2 px-4 pb-4 sm:grid-cols-2">
+                  {sem.subjects.map((s) => (
+                    <li key={s} className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-500" /> {s}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+const EligibilitySection = ({ course }: { course: ApiCourse }) => {
+  if (!course.eligibility) return null;
+  return (
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 className="text-2xl font-extrabold text-slate-900">Eligibility Criteria</h2>
+      <p className="mt-2 text-base leading-7 text-slate-700">{course.eligibility}</p>
+    </section>
+  );
+};
+
+const CareerSection = ({ course }: { course: ApiCourse }) => {
+  const skills = (course.skills ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+  const roles = (course.jobRoles ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+  if (!course.careerOutcomes && skills.length === 0 && roles.length === 0) return null;
+  return (
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 className="text-2xl font-extrabold text-slate-900">Career Outcomes</h2>
+      {course.careerOutcomes && <p className="mt-2 text-base leading-7 text-slate-700">{course.careerOutcomes}</p>}
+      {course.avgSalary && (
+        <div className="mt-4 inline-flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2">
+          <Award className="h-4 w-4 text-emerald-700" />
+          <span className="text-sm font-bold text-emerald-800">Avg Salary: {course.avgSalary}</span>
+        </div>
+      )}
+      {skills.length > 0 && (
+        <div className="mt-6">
+          <h3 className="text-sm font-black uppercase tracking-wide text-slate-700">Skills You'll Gain</h3>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {skills.map((s) => (
+              <span key={s} className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-sm font-bold text-blue-700">{s}</span>
+            ))}
+          </div>
+        </div>
+      )}
+      {roles.length > 0 && (
+        <div className="mt-6">
+          <h3 className="text-sm font-black uppercase tracking-wide text-slate-700">Job Roles You Can Target</h3>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {roles.map((r) => (
+              <span key={r} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-bold text-slate-700">{r}</span>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
+
+const EMICalculator = ({ totalFeeLabel }: { totalFeeLabel: string }) => {
+  const total = parseInt(totalFeeLabel.replace(/[^\d]/g, '') || '160000', 10);
+  const [amount, setAmount] = useState(total);
+  const [months, setMonths] = useState(24);
+  const [rate, setRate] = useState(12);
+  const monthlyRate = rate / 12 / 100;
+  const emi = amount > 0 && months > 0
+    ? Math.round((amount * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1))
+    : 0;
+  const totalPayable = emi * months;
+  const interest = totalPayable - amount;
+  return (
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 className="text-2xl font-extrabold text-slate-900">EMI Calculator</h2>
+      <p className="mt-1 text-sm text-slate-600">Plan your monthly payments.</p>
+      <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_280px]">
+        <div className="space-y-4">
+          <label className="block">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Loan Amount</span>
+              <span className="text-sm font-black text-slate-900">₹{amount.toLocaleString('en-IN')}</span>
+            </div>
+            <input type="range" min={50000} max={total} value={amount} onChange={(e) => setAmount(Number(e.target.value))} className="mt-2 w-full" />
+          </label>
+          <label className="block">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Tenure</span>
+              <span className="text-sm font-black text-slate-900">{months} months</span>
+            </div>
+            <input type="range" min={6} max={60} step={6} value={months} onChange={(e) => setMonths(Number(e.target.value))} className="mt-2 w-full" />
+          </label>
+          <label className="block">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Interest Rate</span>
+              <span className="text-sm font-black text-slate-900">{rate}% p.a.</span>
+            </div>
+            <input type="range" min={5} max={20} step={0.5} value={rate} onChange={(e) => setRate(Number(e.target.value))} className="mt-2 w-full" />
+          </label>
+        </div>
+        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
+          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Monthly EMI</p>
+          <p className="mt-1 text-3xl font-black text-blue-900">₹{emi.toLocaleString('en-IN')}</p>
+          <div className="mt-4 space-y-1 text-xs text-blue-800">
+            <div className="flex justify-between"><span>Total Payable</span><span className="font-bold">₹{totalPayable.toLocaleString('en-IN')}</span></div>
+            <div className="flex justify-between"><span>Total Interest</span><span className="font-bold">₹{interest.toLocaleString('en-IN')}</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const CourseReviewsSection = ({ course }: { course: ApiCourse }) => {
+  if (!course.reviews || course.reviews.length === 0) return null;
+  return (
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 className="text-2xl font-extrabold text-slate-900">Student Reviews for {course.title}</h2>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        {course.reviews.map((r) => (
+          <div key={r.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-black text-white border border-white/30" style={{ backgroundColor: r.color }}>{r.initials}</div>
+              <div>
+                <p className="text-sm font-extrabold text-slate-900">{r.name}</p>
+                <p className="text-xs text-amber-500">{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</p>
+              </div>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-slate-700">“{r.text}”</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const AdmissionsSection = ({ course }: { course: ApiCourse }) => {
+  const steps = [
+    { n: 1, title: 'Fill Application', desc: 'Complete the online enquiry form.' },
+    { n: 2, title: 'Get Counselled', desc: 'Verify eligibility and shortlist program.' },
+    { n: 3, title: 'Pay & Enrol', desc: 'Pay fees directly on university portal.' },
+    { n: 4, title: 'Start Learning', desc: 'Access LMS, live sessions & study material.' },
+  ];
+  return (
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 className="text-2xl font-extrabold text-slate-900">Admission Process for {course.title}</h2>
+      <p className="mt-1 text-sm text-slate-600">A simple 4-step journey from enquiry to enrollment.</p>
+      <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s) => (
+          <li key={s.n} className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+            <div className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-black text-white ${GRADIENT_BG}`}>{s.n}</div>
+            <h3 className="mt-3 text-base font-extrabold text-slate-900">{s.title}</h3>
+            <p className="mt-1 text-sm text-slate-600">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+};
+
+const FAQS = [
+  { q: `Is the ${'{course}'} degree valid for jobs?`, a: 'Yes, UGC-approved online degrees are accepted by government and private employers, including for higher studies and competitive exams.' },
+  { q: 'How are online exams conducted?', a: 'Exams are held online with secure remote proctoring, scheduled on weekends for working professionals.' },
+  { q: 'Will I get placement support?', a: 'Yes — you get resume building, interview prep, and access to 3000+ hiring partners.' },
+  { q: 'Can I pay via EMI?', a: 'Yes, EMI options are available starting from ₹2,000/month through 20+ partner lenders.' },
+];
+
+const FAQSection = ({ course }: { course: ApiCourse }) => (
+  <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="mb-6">
+      <div className="inline-flex items-center space-x-2 bg-slate-100 px-3 py-1 rounded-full mb-3 border border-slate-200">
+        <span className="text-xl">📝</span>
+        <span className="text-sm font-bold text-slate-700">FAQ's</span>
+      </div>
+      <h2 className="text-2xl font-extrabold text-slate-900">Frequently asked about <span className={GRADIENT_TEXT}>{course.title}</span></h2>
+    </div>
+    <div className="space-y-4">
+      {FAQS.map((faq, i) => (
+        <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <h3 className="text-base font-bold text-slate-800">{faq.q.replace('{course}', course.title)}</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">{faq.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="bg-[#0F172A] text-slate-300 pt-16 pb-10 border-t border-slate-800">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div className="lg:col-span-2 space-y-4">
+          <div className="flex items-center"><StepWorldLogo height={56} variant="footer" /></div>
+          <p className="text-blue-400 font-medium">Get the right guidance with us</p>
+          <p className="text-sm font-medium text-slate-400">info@stepworld.com</p>
+        </div>
+        <div>
+          <h4 className="text-white font-bold mb-4">Programs</h4>
+          <ul className="space-y-2 text-sm">
+            <li><a href="#" className="hover:text-blue-400 transition-colors">Online MBA</a></li>
+            <li><a href="#" className="hover:text-blue-400 transition-colors">Online BBA</a></li>
+            <li><a href="#" className="hover:text-blue-400 transition-colors">Online B.Com</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-white font-bold mb-4">General</h4>
+          <ul className="space-y-2 text-sm">
+            <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
+            <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="/admin" className="hover:text-white transition-colors">Admin</a></li>
+          </ul>
+        </div>
+      </div>
+      <p className="text-center text-xs text-slate-500">© 2026 StepWorld, Inc. All Rights Reserved.</p>
+    </div>
+  </footer>
+);
+
+export const CourseDetailPage = ({
+  collegeSlug = 'alliance-university-online',
+  courseSlug = 'online-mba',
+}: {
+  collegeSlug?: string;
+  courseSlug?: string;
+}) => {
+  const [college, setCollege] = useState<ApiCollege>({ ...FALLBACK_COLLEGE, slug: collegeSlug });
+  const [course, setCourse] = useState<ApiCourse>({ ...FALLBACK_COURSE, slug: courseSlug });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [applyOpen, setApplyOpen] = useState(false);
+
+  React.useEffect(() => {
+    const controller = new AbortController();
+    const load = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`/api/colleges/${collegeSlug}`, { signal: controller.signal });
+        if (!res.ok) throw new Error(`College HTTP ${res.status}`);
+        const data: ApiCollege = await res.json();
+        setCollege(data);
+        const target = data.slug === collegeSlug
+          ? (data as unknown as { courses?: ApiCourse[] }).courses?.find((c) => c.slug === courseSlug)
+          : undefined;
+        if (target) setCourse(target);
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') setError((err as Error).message);
+      }
+      try {
+        const res = await fetch(`/api/courses/${courseSlug}`, { signal: controller.signal });
+        if (res.ok) {
+          const data: ApiCourse = await res.json();
+          setCourse(data);
+        }
+      } catch {}
+      setLoading(false);
+    };
+    load();
+    return () => controller.abort();
+  }, [collegeSlug, courseSlug]);
+
+  return (
+    <div className="min-h-screen bg-white font-sans selection:bg-blue-200 selection:text-blue-900">
+      <Navbar collegeSlug={college?.slug} />
+      <Hero course={course} college={college} onApply={() => setApplyOpen(true)} />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+        {loading && (
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-600 shadow-sm">
+            Loading latest data from backend…
+          </div>
+        )}
+        {error && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-800">
+            Could not reach backend ({error}). Showing static data.
+          </div>
+        )}
+        <OverviewSection course={course} college={college} onApply={() => setApplyOpen(true)} />
+        <SyllabusSection course={course} />
+        <EligibilitySection course={course} />
+        <CareerSection course={course} />
+        <EMICalculator totalFeeLabel={course.fee} />
+        <CourseReviewsSection course={course} />
+        <AdmissionsSection course={course} />
+        <FAQSection course={course} />
+      </main>
+      <Footer />
+      <ApplyModal open={applyOpen} onClose={() => setApplyOpen(false)} context={{ collegeName: college.shortName ?? college.name, courseName: course.title }} />
+    </div>
+  );
+};
+
+export default CourseDetailPage;

@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model College {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  name         String
+  shortName    String?
+  location     String
+  fullAddress  String?
+  about        String   @db.Text
+  initials        String
+  logoGradient     String
+  rating           Float    @default(0)
+  ratingCount      String?
+  nirfRank         String?
+  qsRank           String?
+  isFeatured       Boolean  @default(false)
+
+  // New production fields
+  mission      String?  @db.Text
+  established  String?
+  campusSize   String?
+  studentsCount String?
+  avgPackage   String?
+  highestPackage String?
+  placementPct String?
+  topRecruiters String?
+  brochureUrl  String?
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  approvals CollegeApproval[]
+  courses   Course[]
+  faculty   Faculty[]
+  alumni    AlumniLogo[]
+  reviews   CollegeReview[]
+
+  @@index([slug])
+}
+
+model Approval {
+  id       String            @id @default(cuid())
+  label    String            @unique
+  colleges CollegeApproval[]
+}
+
+model CollegeApproval {
+  id         String   @id @default(cuid())
+  collegeId  String
+  approvalId String
+  college    College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  approval   Approval @relation(fields: [approvalId], references: [id], onDelete: Cascade)
+
+  @@unique([collegeId, approvalId])
+}
+
+model Faculty {
+  id          String  @id @default(cuid())
+  collegeId   String
+  name        String
+  title       String
+  experience  String
+  specialization String?
+  initials    String
+  color       String
+  college     College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@index([collegeId])
+}
+
+model AlumniLogo {
+  id        String  @id @default(cuid())
+  collegeId String
+  name      String
+  initials  String
+  color     String
+  college   College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@index([collegeId])
+}
+
+model CollegeReview {
+  id        String   @id @default(cuid())
+  collegeId String
+  name      String
+  initials  String
+  color     String
+  rating    Int      @default(5)
+  text      String   @db.Text
+  createdAt DateTime @default(now())
+  college   College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@index([collegeId])
+}
+
+model Course {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  fee             String
+  duration        String
+  specializations String?
+  badge           String?
+  badgeColor      String?
+  description     String?  @db.Text
+
+  // New production fields
+  eligibility     String?  @db.Text
+  careerOutcomes  String?  @db.Text
+  avgSalary       String?
+  syllabus        Json?    // [{semester: 1, subjects: ["..."]}]
+  skills          String?  // comma separated
+  jobRoles        String?  // comma separated
+  category        String   @default("pg")  // pg | exec | ug | cert
+
+  collegeId       String
+  college         College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  reviews CourseReview[]
+
+  @@index([collegeId])
+}
+
+model CourseReview {
+  id        String   @id @default(cuid())
+  courseId  String
+  name      String
+  initials  String
+  color     String
+  rating    Int      @default(5)
+  text      String   @db.Text
+  createdAt DateTime @default(now())
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
