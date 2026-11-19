@@ -22,6 +22,7 @@ import {
   Users,
   Globe2,
   ArrowRight,
+  MessageCircle,
 } from 'lucide-react';
 import ApplyModal from './ApplyModal';
 
@@ -271,19 +272,29 @@ const Hero = ({ course, college, onApply }: { course: ApiCourse; college: ApiCol
           <h2 className="text-lg font-extrabold text-slate-900">Get Free Counselling</h2>
           <p className="mt-1 text-sm text-slate-600">Talk to an advisor for {course.title} at {college.shortName ?? college.name}.</p>
 
-          <div className="mt-5 space-y-3">
-            <label className="block">
-              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Full Name</span>
-              <input type="text" placeholder="e.g. Rahul Sharma" className="mt-1 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
-            </label>
-            <label className="block">
-              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Mobile Number</span>
-              <input type="tel" placeholder="+91 9876543210" className="mt-1 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
-            </label>
+          <div className="mt-4 p-3 bg-emerald-50 rounded-2xl border border-emerald-200 flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white">
+              <MessageCircle className="w-5 h-5 fill-current" />
+            </div>
+            <div>
+              <p className="text-[10px] font-black uppercase text-emerald-800 tracking-wider">Direct WhatsApp Support</p>
+              <p className="text-sm font-extrabold text-slate-900">+91 99102 45535</p>
+            </div>
           </div>
 
-          <button onClick={onApply} className={`mt-5 w-full rounded-xl py-3 text-sm font-black uppercase tracking-[0.12em] text-white shadow-lg shadow-blue-900/25 transition-transform hover:-translate-y-0.5 ${GRADIENT_BG}`}>
-            Apply Now
+          <button
+            onClick={onApply}
+            className="mt-4 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 text-xs font-black uppercase tracking-wider shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4 fill-current" />
+            <span>Apply on WhatsApp (99102 45535)</span>
+          </button>
+
+          <button
+            onClick={onApply}
+            className={`mt-2.5 w-full rounded-xl py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-transform hover:-translate-y-0.5 cursor-pointer ${GRADIENT_BG}`}
+          >
+            Get Free Counselling Now
           </button>
           <button className="mt-3 w-full rounded-xl border-2 border-blue-600 py-3 text-sm font-bold text-blue-600 transition-colors hover:bg-blue-50">
             Download Brochure
@@ -385,8 +396,8 @@ const OverviewSection = ({ course, college, onApply }: { course: ApiCourse; coll
               {[
                 ['Program Fees', course.fee],
                 ['Duration', course.duration],
-                ['EMI Starting', `₹${Math.round(parseInt(course.fee.replace(/[^\d]/g, '') || '0', 10) / 24).toLocaleString('en-IN')}/mo`],
-                ['Mode', '100% Online'],
+                ['Mode', 'Regular On-Campus / Approved Online'],
+                ['Admission Assistance', '100% Free Guidance by StepWorld'],
               ].map(([k, v], i) => (
                 <tr key={k} className={`border-t border-slate-100 ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
                   <td className="px-5 py-4 font-bold text-slate-700">{k}</td>
@@ -398,17 +409,27 @@ const OverviewSection = ({ course, college, onApply }: { course: ApiCourse; coll
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-2xl font-extrabold text-slate-900">Education Loan / EMI</h2>
-        <p className="mt-2 text-sm text-slate-600">
-          Flexible EMI options and education loan support available through 20+ lenders, sanctioned in less than 24 hours.
-        </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {['20+ Lenders', 'Sanctioned < 24 hrs', 'No Bank Visit'].map((t) => (
-            <div key={t} className="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-center text-sm font-extrabold text-emerald-700">
-              {t}
+      <section className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black px-3 py-1 mb-2">
+              <MessageCircle className="w-3.5 h-3.5 fill-current" />
+              <span>Direct WhatsApp Admissions</span>
             </div>
-          ))}
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+              Need Instant Help with {course.title}?
+            </h2>
+            <p className="mt-1 text-xs sm:text-sm text-slate-600">
+              Chat directly with our senior admission counsellor on WhatsApp for cutoff, eligibility, and direct university fee details.
+            </p>
+          </div>
+          <button
+            onClick={onApply}
+            className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase tracking-wider py-3.5 px-6 shadow-md transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0"
+          >
+            <MessageCircle className="w-4 h-4 fill-current" />
+            <span>Chat on WhatsApp: 99102 45535</span>
+          </button>
         </div>
       </section>
     </div>
@@ -662,7 +683,7 @@ const FAQS = [
   { q: `Is the ${'{course}'} degree valid for jobs?`, a: 'Yes, UGC-approved online degrees are accepted by government and private employers, including for higher studies and competitive exams.' },
   { q: 'How are online exams conducted?', a: 'Exams are held online with secure remote proctoring, scheduled on weekends for working professionals.' },
   { q: 'Will I get placement support?', a: 'Yes — you get resume building, interview prep, and access to 3000+ hiring partners.' },
-  { q: 'Can I pay via EMI?', a: 'Yes, EMI options are available starting from ₹2,000/month through 20+ partner lenders.' },
+  { q: 'How does StepWorld assist with admissions?', a: 'StepWorld provides 100% free personalized counselling, direct university fee payment guidance, application verification, and end-to-end admission support.' },
 ];
 
 const FAQSection = ({ course }: { course: ApiCourse }) => (
@@ -729,6 +750,13 @@ export const CourseDetailPage = ({
   const [error, setError] = useState<string | null>(null);
   const [applyOpen, setApplyOpen] = useState(false);
 
+  const handleWhatsAppApply = () => {
+    const message = encodeURIComponent(
+      `Hi StepWorld! I want to get Free Counselling & Apply for ${course.title} at ${college.shortName ?? college.name}. Please guide me with admissions and fees.`
+    );
+    window.open(`https://wa.me/919910245535?text=${message}`, '_blank');
+  };
+
   React.useEffect(() => {
     const controller = new AbortController();
     const load = async () => {
@@ -764,7 +792,7 @@ export const CourseDetailPage = ({
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-blue-200 selection:text-blue-900">
       <Navbar collegeSlug={college?.slug} />
-      <Hero course={course} college={college} onApply={() => setApplyOpen(true)} />
+      <Hero course={course} college={college} onApply={handleWhatsAppApply} />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
         {loading && (
           <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-600 shadow-sm">
@@ -776,11 +804,11 @@ export const CourseDetailPage = ({
             Could not reach backend ({error}). Showing static data.
           </div>
         )}
-        <OverviewSection course={course} college={college} onApply={() => setApplyOpen(true)} />
+        <OverviewSection course={course} college={college} onApply={handleWhatsAppApply} />
         <SyllabusSection course={course} />
         <EligibilitySection course={course} />
         <CareerSection course={course} />
-        <EMICalculator totalFeeLabel={course.fee} />
+
         <CourseReviewsSection course={course} />
         <AdmissionsSection course={course} />
         <FAQSection course={course} />

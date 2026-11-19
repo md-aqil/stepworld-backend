@@ -30,6 +30,7 @@ import {
   TrendingUp,
   Sparkles,
   Phone,
+  MessageCircle,
   Mail,
   ExternalLink,
   Clock,
@@ -452,8 +453,18 @@ export const StepWorldHomepage = () => {
             <span className="sm:hidden text-slate-300 truncate">Offline & Online Admissions</span>
           </div>
           <div className="flex items-center gap-4 text-xs font-semibold whitespace-nowrap shrink-0">
-            <a href="tel:18004200000" className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300">
-              <Phone className="w-3.5 h-3.5" />
+            <a
+              href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-bold"
+            >
+              <MessageCircle className="w-3.5 h-3.5 fill-current" />
+              <span>WhatsApp: +91 99102 45535</span>
+            </a>
+            <span className="hidden md:inline text-slate-600">|</span>
+            <a href="tel:18004200000" className="hidden sm:flex items-center gap-1.5 text-slate-300 hover:text-white">
+              <Phone className="w-3.5 h-3.5 text-emerald-400" />
               <span>1800-420-0000</span>
             </a>
             <span className="hidden md:inline text-slate-600">|</span>
@@ -506,13 +517,22 @@ export const StepWorldHomepage = () => {
 
             </div>
 
-            {/* Quick Action Button - Single Line */}
+            {/* Quick Action Buttons - WhatsApp & Phone */}
             <div className="hidden lg:flex items-center space-x-2 whitespace-nowrap shrink-0">
               <a
-                href="tel:18004200000"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white px-3.5 py-2 text-xs font-black uppercase tracking-wider shadow-sm hover:from-emerald-700 hover:to-teal-800 transition-all whitespace-nowrap shrink-0"
+                href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 text-xs font-black uppercase tracking-wider shadow-sm transition-all whitespace-nowrap shrink-0"
               >
-                <Phone className="h-3.5 w-3.5 shrink-0" />
+                <MessageCircle className="h-3.5 w-3.5 fill-current" />
+                <span className="whitespace-nowrap">WhatsApp (99102 45535)</span>
+              </a>
+              <a
+                href="tel:18004200000"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 text-xs font-bold uppercase tracking-wider shadow-sm transition-all whitespace-nowrap shrink-0"
+              >
+                <Phone className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
                 <span className="whitespace-nowrap">1800-420-0000</span>
               </a>
             </div>
@@ -1570,6 +1590,21 @@ export const StepWorldHomepage = () => {
                   </div>
                 </div>
 
+                <div className="flex items-center gap-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 p-4">
+                  <MessageCircle className="h-5 w-5 text-emerald-600 shrink-0 fill-current" />
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Direct WhatsApp Admissions</h4>
+                    <a
+                      href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-extrabold text-emerald-700 hover:underline"
+                    >
+                      +91 99102 45535 (Instant Response)
+                    </a>
+                  </div>
+                </div>
+
                 <div className="flex items-center gap-3.5 rounded-2xl bg-slate-50 border border-slate-200 p-4">
                   <Phone className="h-5 w-5 text-emerald-600 shrink-0" />
                   <div>
@@ -1828,20 +1863,38 @@ export const StepWorldHomepage = () => {
       {/* STICKY BOTTOM ACTION BAR FOR MOBILE (SM:HIDDEN) */}
       <div className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 shadow-2xl flex items-center gap-2 sm:hidden">
         <a
+          href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 rounded-xl bg-emerald-600 text-white text-xs font-black py-2.5 px-3 flex items-center justify-center gap-1.5 shadow-xs"
+        >
+          <MessageCircle className="w-4 h-4 fill-current" />
+          <span>WhatsApp: 99102 45535</span>
+        </a>
+        <a
           href="tel:18004200000"
           className="flex-1 rounded-xl bg-slate-900 text-white text-xs font-black py-2.5 px-3 flex items-center justify-center gap-1.5 shadow-xs"
         >
           <Phone className="w-3.5 h-3.5 text-emerald-400" />
           <span>1800-420-0000</span>
         </a>
-        <a
-          href="#contact-location"
-          className="flex-1 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs font-black py-2.5 px-3 flex items-center justify-center gap-1.5 shadow-xs"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-          <span>Free Counselling</span>
-        </a>
       </div>
+
+      {/* FLOATING WHATSAPP BUTTON (DESKTOP) */}
+      <a
+        href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-40 hidden sm:flex items-center gap-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-3 shadow-2xl shadow-emerald-900/30 hover:scale-105 transition-all group cursor-pointer"
+        aria-label="Chat on WhatsApp"
+      >
+        <span className="flex h-3 w-3 relative">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+        </span>
+        <MessageCircle className="w-4 h-4 fill-current" />
+        <span className="text-xs font-black uppercase tracking-wider">WhatsApp: 99102 45535</span>
+      </a>
 
     </div>
   );
