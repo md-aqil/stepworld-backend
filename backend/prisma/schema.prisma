@@ -22,6 +22,7 @@ model College {
   nirfRank         String?
   qsRank           String?
   isFeatured       Boolean  @default(false)
+  mode             String   @default("offline") // offline | online | both
 
   // New production fields
   mission      String?  @db.Text
@@ -120,6 +121,8 @@ model Course {
   skills          String?  // comma separated
   jobRoles        String?  // comma separated
   category        String   @default("pg")  // pg | exec | ug | cert
+  mode            String   @default("offline")  // offline | online
+  stream          String?  // Engineering, Medical, Management, etc.
 
   collegeId       String
   college         College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)

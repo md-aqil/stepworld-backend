@@ -3,6 +3,9 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
 import { collegesRouter } from './routes/colleges.routes.js';
 import { coursesRouter } from './routes/courses.routes.js';
@@ -11,12 +14,11 @@ import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 4000);
-const FRONTEND_URL = process.env.FRONTEND_URL ?? 'http://localhost:5173';
 
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   cors({
-    origin: FRONTEND_URL.split(',').map((s) => s.trim()),
+    origin: (_origin, callback) => callback(null, true),
     credentials: true,
   }),
 );
@@ -30,6 +32,25 @@ app.get('/health', (_req, res) => {
 app.use('/api/colleges', collegesRouter);
 app.use('/api/courses', coursesRouter);
 app.use('/api/approvals', approvalsRouter);
+
+// Serve compiled frontend SPA if dist exists
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.resolve(__dirname, '../../dist');
+
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api/') || req.path === '/health') {
+      return next();
+    }
+    const indexPath = path.join(distPath, 'index.html');
+    if (fs.existsSync(indexPath)) {
+      return res.sendFile(indexPath);
+    }
+    next();
+  });
+}
 
 app.use(notFoundHandler);
 app.use(errorHandler);

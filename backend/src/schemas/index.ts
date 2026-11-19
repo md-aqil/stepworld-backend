@@ -23,6 +23,7 @@ export const createCollegeSchema = z.object({
   nirfRank: optionalString,
   qsRank: optionalString,
   isFeatured: z.boolean().default(false),
+  mode: z.enum(['offline', 'online', 'both']).default('offline'),
   approvalLabels: z.array(z.string()).default([]),
   mission: optionalString,
   established: optionalString,
@@ -55,6 +56,8 @@ export const createCourseSchema = z.object({
   skills: optionalString,
   jobRoles: optionalString,
   category: z.enum(['pg', 'exec', 'ug', 'cert']).default('pg'),
+  mode: z.enum(['offline', 'online']).default('offline'),
+  stream: optionalString,
   collegeId: z.string().min(1),
 });
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { apiUrl } from '../lib/api';
+import { apiUrl } from '../../lib/api';
 import {
   Plus,
   Pencil,
@@ -15,6 +15,12 @@ import {
   CheckCircle2,
   AlertCircle,
   Eye,
+  EyeOff,
+  Lock,
+  LogOut,
+  ShieldCheck,
+  Mail,
+  Key,
 } from 'lucide-react';
 
 const GRADIENT_BG = 'bg-gradient-to-r from-green-500 via-yellow-500 via-orange-500 via-red-500 via-purple-500 to-blue-500';
@@ -39,6 +45,7 @@ type Course = {
   skills: string | null;
   jobRoles: string | null;
   category: 'pg' | 'exec' | 'ug' | 'cert';
+  mode?: 'offline' | 'online';
   collegeId?: string;
   college?: { slug: string; name: string };
   reviews?: CourseReview[];
@@ -61,6 +68,7 @@ type College = {
   nirfRank: string | null;
   qsRank: string | null;
   isFeatured: boolean;
+  mode?: 'offline' | 'online' | 'both';
   mission: string | null;
   established: string | null;
   campusSize: string | null;
@@ -89,7 +97,9 @@ const api = async <T,>(path: string, init?: RequestInit): Promise<T> => {
     try {
       const data = await res.json();
       if (data?.error) msg = data.issues ? `${data.error}: ${data.issues.map((i: { path?: string[]; message: string }) => `${i.path?.join('.')}: ${i.message}`).join('; ')}` : data.error;
-    } catch {}
+    } catch {
+      // response is not json
+    }
     throw new Error(msg);
   }
   if (res.status === 204) return undefined as unknown as T;
@@ -146,7 +156,7 @@ const Toast = ({ toast, onClose }: { toast: Toast | null; onClose: () => void })
 type CollegeFormState = {
   slug: string; name: string; shortName: string; location: string; fullAddress: string; about: string;
   initials: string; logoGradient: string; rating: number; ratingCount: string; nirfRank: string; qsRank: string;
-  isFeatured: boolean; approvalLabels: string[]; mission: string; established: string; campusSize: string;
+  isFeatured: boolean; mode: 'offline' | 'online' | 'both'; approvalLabels: string[]; mission: string; established: string; campusSize: string;
   studentsCount: string; avgPackage: string; highestPackage: string; placementPct: string;
   topRecruiters: string; brochureUrl: string;
 };
@@ -154,7 +164,7 @@ type CollegeFormState = {
 const emptyCollege: CollegeFormState = {
   slug: '', name: '', shortName: '', location: '', fullAddress: '', about: '',
   initials: '', logoGradient: 'from-orange-500 via-rose-500 to-purple-600',
-  rating: 0, ratingCount: '', nirfRank: '', qsRank: '', isFeatured: false, approvalLabels: [],
+  rating: 0, ratingCount: '', nirfRank: '', qsRank: '', isFeatured: false, mode: 'offline', approvalLabels: [],
   mission: '', established: '', campusSize: '', studentsCount: '',
   avgPackage: '', highestPackage: '', placementPct: '', topRecruiters: '', brochureUrl: '',
 };
@@ -207,6 +217,13 @@ const CollegeForm = ({
       <div className="md:col-span-2"><Field label="Top Recruiters" hint="Comma separated"><input value={state.topRecruiters} onChange={(e) => update('topRecruiters', e.target.value)} placeholder="Deloitte, EY, KPMG, Amazon" className={inputCls} /></Field></div>
       <div className="md:col-span-2"><Field label="Mission"><textarea rows={3} value={state.mission} onChange={(e) => update('mission', e.target.value)} className={inputCls} /></Field></div>
       <Field label="Brochure URL"><input value={state.brochureUrl} onChange={(e) => update('brochureUrl', e.target.value)} placeholder="https://..." className={inputCls} /></Field>
+      <Field label="Delivery Mode" hint="On-campus offline vs online">
+        <select value={state.mode} onChange={(e) => update('mode', e.target.value as CollegeFormState['mode'])} className={inputCls}>
+          <option value="offline">🏫 Regular On-Campus (Offline)</option>
+          <option value="online">💻 Online University</option>
+          <option value="both">🌐 Both (Campus & Online)</option>
+        </select>
+      </Field>
       <Field label="Featured"><label className="inline-flex items-center gap-2"><input type="checkbox" checked={state.isFeatured} onChange={(e) => update('isFeatured', e.target.checked)} /><span className="text-sm text-slate-700">Show on homepage as featured</span></label></Field>
       <div className="md:col-span-2">
         <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Approvals</span>
@@ -238,6 +255,7 @@ type CourseFormState = {
   badge: string; badgeColor: string; description: string; eligibility: string; careerOutcomes: string;
   avgSalary: string; skills: string; jobRoles: string; syllabusText: string; collegeId: string;
   category: 'pg' | 'exec' | 'ug' | 'cert';
+  mode: 'offline' | 'online';
 };
 
 const emptyCourse: CourseFormState = {
@@ -245,6 +263,7 @@ const emptyCourse: CourseFormState = {
   badge: '', badgeColor: '', description: '', eligibility: '', careerOutcomes: '',
   avgSalary: '', skills: '', jobRoles: '', syllabusText: '', collegeId: '',
   category: 'pg',
+  mode: 'offline',
 };
 
 const CATEGORY_OPTIONS: { id: 'pg' | 'exec' | 'ug' | 'cert'; title: string; subtitle: string }[] = [
@@ -302,6 +321,12 @@ const CourseForm = ({
           ))}
         </select>
       </Field>
+      <Field label="Course Mode" hint="Regular classroom vs online">
+        <select value={state.mode} onChange={(e) => update('mode', e.target.value as CourseFormState['mode'])} className={inputCls}>
+          <option value="offline">🏫 Regular On-Campus (Offline)</option>
+          <option value="online">💻 Online Degree</option>
+        </select>
+      </Field>
       <Field label="Specializations"><input value={state.specializations} onChange={(e) => update('specializations', e.target.value)} placeholder="6 Specializations" className={inputCls} /></Field>
       <Field label="Badge"><input value={state.badge} onChange={(e) => update('badge', e.target.value)} placeholder="⚡ Trending" className={inputCls} /></Field>
       <Field label="Badge Color (Tailwind classes)"><input value={state.badgeColor} onChange={(e) => update('badgeColor', e.target.value)} placeholder="bg-blue-100 text-blue-700" className={inputCls} /></Field>
@@ -332,7 +357,7 @@ const parseSyllabus = (text: string): { semester: number; subjects: string[] }[]
   const lines = text.split(/\n|\//).map((l) => l.trim()).filter(Boolean);
   const out: { semester: number; subjects: string[] }[] = [];
   for (const line of lines) {
-    const m = line.match(/^(?:semester\s*)?(\d+)\s*[:\-]\s*(.+)$/i);
+    const m = line.match(/^(?:semester\s*)?(\d+)\s*[:-]\s*(.+)$/i);
     if (m) {
       const semester = parseInt(m[1]!, 10);
       const subjects = m[2]!.split(',').map((s) => s.trim()).filter(Boolean);
@@ -343,6 +368,56 @@ const parseSyllabus = (text: string): { semester: number; subjects: string[] }[]
 };
 
 const AdminPage = () => {
+  // Authentication gate for authorized admin: aqilali381@gmail.com
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('stepworld_admin_session');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.email === 'aqilali381@gmail.com') {
+          return true;
+        }
+      }
+    } catch (_) {}
+    return false;
+  });
+
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+    const normalizedEmail = loginEmail.trim().toLowerCase();
+    if (normalizedEmail === 'aqilali381@gmail.com' && loginPassword === 'Apple@123') {
+      try {
+        localStorage.setItem(
+          'stepworld_admin_session',
+          JSON.stringify({
+            email: 'aqilali381@gmail.com',
+            loggedInAt: new Date().toISOString(),
+          })
+        );
+      } catch (_) {}
+      setIsAuthenticated(true);
+      setLoginError(null);
+    } else {
+      setLoginError('Invalid administrator credentials. Access restricted to authorized personnel.');
+    }
+  };
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('stepworld_admin_session');
+    } catch (_) {}
+    setIsAuthenticated(false);
+    setLoginEmail('');
+    setLoginPassword('');
+    setLoginError(null);
+  };
+
   const [tab, setTab] = useState<'colleges' | 'courses' | 'approvals'>('colleges');
   const [colleges, setColleges] = useState<College[]>([]);
   const [approvals, setApprovals] = useState<Approval[]>([]);
@@ -389,7 +464,7 @@ const AdminPage = () => {
     slug: c.slug, name: c.name, shortName: c.shortName ?? '', location: c.location,
     fullAddress: c.fullAddress ?? '', about: c.about, initials: c.initials, logoGradient: c.logoGradient,
     rating: c.rating, ratingCount: c.ratingCount ?? '', nirfRank: c.nirfRank ?? '', qsRank: c.qsRank ?? '',
-    isFeatured: c.isFeatured, approvalLabels: c.approvals.map((a) => a.approval.label),
+    isFeatured: c.isFeatured, mode: c.mode ?? 'offline', approvalLabels: c.approvals.map((a) => a.approval.label),
     mission: c.mission ?? '', established: c.established ?? '', campusSize: c.campusSize ?? '',
     studentsCount: c.studentsCount ?? '', avgPackage: c.avgPackage ?? '', highestPackage: c.highestPackage ?? '',
     placementPct: c.placementPct ?? '', topRecruiters: c.topRecruiters ?? '', brochureUrl: c.brochureUrl ?? '',
@@ -403,6 +478,7 @@ const AdminPage = () => {
     syllabusText: (c.syllabus ?? []).map((s) => `Semester ${s.semester}: ${s.subjects.join(', ')}`).join('\n'),
     collegeId: c.collegeId ?? collegeId,
     category: c.category,
+    mode: c.mode ?? 'offline',
   });
 
   const submitCollege = async (s: CollegeFormState) => {
@@ -525,15 +601,114 @@ const AdminPage = () => {
     { id: 'approvals' as const, label: 'Approvals', count: approvals.length, icon: Tag },
   ];
 
+  // If not authenticated, render the secure login gate
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden font-sans">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="w-full max-w-md bg-white rounded-3xl border border-slate-200/80 shadow-2xl p-7 sm:p-9 relative z-10">
+          <div className="text-center mb-7">
+            <img
+              src="/stepworld-logo.jpg"
+              alt="StepWorld"
+              className="h-14 w-auto object-contain mx-auto rounded-xl shadow-md mb-4"
+            />
+            <div className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-2">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Restricted Access Portal</span>
+            </div>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Admin Console</h1>
+            <p className="text-xs text-slate-500 mt-1">Sign in with authorized administrator credentials</p>
+          </div>
+
+          {loginError && (
+            <div className="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <span>{loginError}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+                Admin Email
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="email"
+                  required
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  placeholder="aqilali381@gmail.com"
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-slate-50 focus:bg-white transition-all shadow-xs"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+                Password
+              </label>
+              <div className="relative">
+                <Key className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-300 text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-slate-50 focus:bg-white transition-all shadow-xs"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full mt-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-black text-xs uppercase tracking-wider py-3.5 px-4 shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+            >
+              <Lock className="w-4 h-4" />
+              <span>Unlock Admin Console</span>
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-slate-100 text-center">
+            <a
+              href="/"
+              className="text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors inline-flex items-center gap-1"
+            >
+              ← Return to StepWorld Homepage
+            </a>
+          </div>
+        </div>
+
+        <p className="mt-8 text-center text-xs text-slate-400">
+          © {new Date().getFullYear()} StepWorld Education Consultancy · Admin Security System
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
       <Toast toast={toast} onClose={() => setToast(null)} />
 
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-slate-200 bg-white shadow-sm lg:flex">
-        <div className="flex h-20 items-center border-b border-slate-200 px-6">
+        <div className="flex h-20 items-center border-b border-slate-200 px-6 gap-3">
+          <img src="/stepworld-logo.jpg" alt="StepWorld" className="h-10 w-auto rounded-lg shadow-sm" />
           <div>
-            <h1 className="text-lg font-black text-slate-900"><span className={GRADIENT_TEXT}>StepWorld</span></h1>
-            <p className="text-xs font-bold text-slate-500">Admin Console</p>
+            <h1 className="text-sm font-black text-slate-900 leading-none">StepWorld</h1>
+            <p className="text-[10px] font-bold text-slate-500 mt-1">Admin Console</p>
           </div>
         </div>
         <nav className="flex-1 space-y-1 px-3 py-4">
@@ -550,10 +725,20 @@ const AdminPage = () => {
             );
           })}
         </nav>
-        <div className="border-t border-slate-200 p-3">
-          <a href="/" className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50">
-            <Eye className="h-4 w-4" /> View Site
+        <div className="border-t border-slate-200 p-3 space-y-1">
+          <div className="px-3 py-2 text-[11px] font-bold text-slate-500 truncate bg-slate-50 rounded-xl mb-1">
+            <span className="block text-[9px] uppercase font-black text-slate-400">Logged in as</span>
+            <span className="text-emerald-700 font-extrabold truncate block">aqilali381@gmail.com</span>
+          </div>
+          <a href="/" className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100">
+            <Eye className="h-3.5 w-3.5" /> View Public Site
           </a>
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 cursor-pointer"
+          >
+            <LogOut className="h-3.5 w-3.5" /> Sign Out
+          </button>
         </div>
       </aside>
 
@@ -569,8 +754,20 @@ const AdminPage = () => {
               <span className="text-sm font-bold text-slate-500">Admin Console</span>
             </div>
             <div className="flex items-center gap-2">
-              <button onClick={refresh} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">
-                <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
+              <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="truncate max-w-[160px]">aqilali381@gmail.com</span>
+              </span>
+              <button onClick={refresh} className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">
+                <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} /> Refresh
+              </button>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center gap-1.5 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 px-3 py-2 text-xs font-bold cursor-pointer transition-colors"
+                title="Sign Out"
+              >
+                <LogOut className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
           </div>
@@ -636,9 +833,14 @@ const AdminPage = () => {
                     <div className="flex items-start gap-4">
                       <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-black text-white shadow border-2 border-white" style={{ backgroundColor: c.logoGradient }}>{c.initials}</div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <h3 className="truncate text-lg font-extrabold text-slate-900">{c.name}</h3>
                           {c.isFeatured && <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-black text-amber-700">FEATURED</span>}
+                          {c.mode === 'online' ? (
+                            <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-black text-sky-700">💻 ONLINE</span>
+                          ) : (
+                            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-black text-emerald-700">🏫 CAMPUS</span>
+                          )}
                         </div>
                         <p className="text-sm text-slate-500">{c.location}</p>
                         <div className="mt-2 flex flex-wrap gap-1.5">
@@ -707,10 +909,15 @@ const AdminPage = () => {
                   <article key={c.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                     <div className="flex items-start gap-4">
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <h3 className="truncate text-lg font-extrabold text-slate-900">{c.title}</h3>
                           <span className={`shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider ${categoryBadgeClass(c.category)}`}>
                             {categoryLabel(c.category)}
+                          </span>
+                          <span className={`shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
+                            c.mode === 'online' ? 'bg-sky-100 text-sky-700' : 'bg-emerald-100 text-emerald-700'
+                          }`}>
+                            {c.mode === 'online' ? '💻 Online' : '🏫 Campus'}
                           </span>
                         </div>
                         <p className="text-sm text-slate-500">{c.college?.name}</p>

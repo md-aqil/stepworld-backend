@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../../lib/api';
 import {
   Search,
   ChevronDown,
@@ -34,55 +35,16 @@ type StepWorldLogoProps = {
   variant: 'nav' | 'footer';
 };
 
-const StepWorldLogo = ({ height, variant }: StepWorldLogoProps) => {
-  const idPrefix = variant === 'nav' ? 'stepworld-nav' : 'stepworld-footer';
-  const taglineColor = variant === 'nav' ? '#475569' : '#CBD5E1';
+const StepWorldLogo = ({ height }: { height: number; variant?: 'nav' | 'footer' }) => {
   return (
-    <svg
-      aria-labelledby={`${idPrefix}-title`}
-      role="img"
-      viewBox="0 0 330 92"
-      className="block w-auto max-w-[220px] sm:max-w-none"
-      style={{ height }}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <title id={`${idPrefix}-title`}>StepWorld — Step Your Career With Us</title>
-      <defs>
-        <linearGradient id={`${idPrefix}-swoosh`} x1="10" y1="28" x2="252" y2="24" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#16A34A" />
-          <stop offset="0.24" stopColor="#FACC15" />
-          <stop offset="0.45" stopColor="#F97316" />
-          <stop offset="0.66" stopColor="#E11D48" />
-          <stop offset="1" stopColor="#7C3AED" />
-        </linearGradient>
-        <linearGradient id={`${idPrefix}-metal`} x1="78" y1="38" x2="235" y2="82" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#FFFFFF" />
-          <stop offset="0.38" stopColor="#F8FAFC" />
-          <stop offset="0.64" stopColor="#CBD5E1" />
-          <stop offset="1" stopColor="#FFFFFF" />
-        </linearGradient>
-        <linearGradient id={`${idPrefix}-figure`} x1="236" y1="18" x2="314" y2="84" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#22D3EE" />
-          <stop offset="0.52" stopColor="#2563EB" />
-          <stop offset="1" stopColor="#7C3AED" />
-        </linearGradient>
-        <filter id={`${idPrefix}-soft-shadow`} x="-20%" y="-30%" width="140%" height="170%">
-          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.26" />
-        </filter>
-      </defs>
-      <path d="M8 29C70 50 139 9 226 13C172 18 119 44 62 42C40 41 23 36 8 29Z" fill={`url(#${idPrefix}-swoosh)`} opacity="0.9" />
-      <path d="M86 42C141 20 197 20 260 26C204 32 154 52 100 51C92 51 88 48 86 42Z" fill={`url(#${idPrefix}-swoosh)`} opacity="0.82" />
-      <text x="12" y="64" fill={`url(#${idPrefix}-metal)`} filter={`url(#${idPrefix}-soft-shadow)`} fontFamily="Arial Black, Inter, sans-serif" fontSize="37" fontWeight="900" letterSpacing="-2.2">
-        STEPWORLD
-      </text>
-      <text x="36" y="84" fill={taglineColor} fontFamily="Inter, Arial, sans-serif" fontSize="13" fontWeight="700" letterSpacing="1.2">
-        Step Your Career With Us
-      </text>
-      <path d="M247 21C269 42 286 40 318 22C299 48 279 62 248 68C234 71 228 78 219 88C222 65 231 51 246 44C251 40 252 31 247 21Z" fill={`url(#${idPrefix}-figure)`} opacity="0.94" />
-      <circle cx="282" cy="18" r="8" fill={`url(#${idPrefix}-figure)`} />
-      <path d="M276 27C263 39 251 51 235 54C253 58 271 49 286 33L276 27Z" fill={`url(#${idPrefix}-figure)`} />
-      <path d="M288 54C302 62 311 71 322 87C301 83 285 76 271 61L288 54Z" fill={`url(#${idPrefix}-figure)`} />
-    </svg>
+    <div className="flex items-center gap-2">
+      <img
+        src="/stepworld-logo.jpg"
+        alt="StepWorld"
+        style={{ height }}
+        className="w-auto object-contain rounded-xl shadow-md"
+      />
+    </div>
   );
 };
 
@@ -91,9 +53,9 @@ const Navbar = ({ collegeSlug }: { collegeSlug?: string }) => {
   return (
     <nav className="sticky top-0 z-50 w-full bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          <a href="/" className="flex items-center flex-shrink-0 cursor-pointer">
-            <StepWorldLogo height={48} variant="nav" />
+        <div className="flex justify-between items-center h-20 sm:h-24">
+          <a href="/" className="flex items-center flex-shrink-0 cursor-pointer py-1">
+            <StepWorldLogo height={72} variant="nav" />
           </a>
           <div className="hidden lg:flex items-center space-x-8">
             <button className="flex items-center text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
@@ -108,9 +70,7 @@ const Navbar = ({ collegeSlug }: { collegeSlug?: string }) => {
             <button className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
               About Us
             </button>
-            <a href="/admin" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
-              Admin
-            </a>
+
           </div>
           <div className="hidden lg:flex items-center space-x-4">
             <a
@@ -154,6 +114,7 @@ type ApiCourse = {
   syllabus: { semester: number; subjects: string[] }[] | null;
   skills: string | null;
   jobRoles: string | null;
+  mode?: string | null;
   reviews: { id: string; name: string; initials: string; color: string; rating: number; text: string }[];
 };
 type ApiCollege = {
@@ -253,10 +214,19 @@ const Hero = ({ course, college, onApply }: { course: ApiCourse; college: ApiCol
 
       <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
         <div>
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-300/25 bg-white/[0.07] px-4 py-2 shadow-sm shadow-black/20 backdrop-blur-md">
-            <Sparkles className="h-4 w-4 text-orange-300" aria-hidden="true" />
-            <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-orange-300">Online Program · 2026 Intake Open</span>
-          </div>
+          {(() => {
+            const isOffline = (course.mode ?? (/online/i.test(course.title) ? 'online' : 'offline')) === 'offline';
+            return (
+              <div className={`mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-2 shadow-sm backdrop-blur-md ${
+                isOffline ? 'border-emerald-300/30 bg-emerald-500/10 text-emerald-300' : 'border-sky-300/30 bg-sky-500/10 text-sky-300'
+              }`}>
+                <Sparkles className="h-4 w-4" aria-hidden="true" />
+                <span className="text-xs font-extrabold uppercase tracking-[0.16em]">
+                  {isOffline ? '🏫 Regular On-Campus Degree · 2026 Admissions Open' : '💻 Online Degree · 2026 Intake Open'}
+                </span>
+              </div>
+            );
+          })()}
 
           {course.badge && course.badgeColor && (
             <span className={`mb-4 inline-flex rounded-full px-3 py-1 text-xs font-black uppercase tracking-wide ${course.badgeColor}`}>
@@ -720,7 +690,7 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
         <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center"><StepWorldLogo height={56} variant="footer" /></div>
+          <div className="flex items-center"><StepWorldLogo height={68} variant="footer" /></div>
           <p className="text-blue-400 font-medium">Get the right guidance with us</p>
           <p className="text-sm font-medium text-slate-400">info@stepworld.com</p>
         </div>
@@ -737,7 +707,7 @@ const Footer = () => (
           <ul className="space-y-2 text-sm">
             <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
             <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="/admin" className="hover:text-white transition-colors">Admin</a></li>
+            
           </ul>
         </div>
       </div>
@@ -782,7 +752,9 @@ export const CourseDetailPage = ({
           const data: ApiCourse = await res.json();
           setCourse(data);
         }
-      } catch {}
+      } catch {
+        // course load failed or aborted, keep college's course data
+      }
       setLoading(false);
     };
     load();

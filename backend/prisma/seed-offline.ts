@@ -1,0 +1,286 @@
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+const offlineColleges = [
+  {
+    slug: 'bits-pilani',
+    name: 'Birla Institute of Technology and Science (BITS Pilani)',
+    shortName: 'BITS Pilani (Campus)',
+    location: 'Pilani, Rajasthan',
+    fullAddress: 'Vidya Vihar Campus, Pilani, Rajasthan - 333031',
+    initials: 'BP',
+    logoGradient: '#047857',
+    rating: 4.9,
+    ratingCount: '3,450 Reviews',
+    nirfRank: '18 (Engineering)',
+    qsRank: 'World Top 500',
+    isFeatured: true,
+    mode: 'offline',
+    about: 'BITS Pilani is one of India’s foremost autonomous private science and technological institutes. Known for its vibrant 328-acre residential campus, state-of-the-art research laboratories, zero-attendance flexibility, and top-tier global placements.',
+    mission: 'To advance knowledge and educate students in science and technology to best serve the nation and the world.',
+    established: '1964',
+    campusSize: '328 Acres Residential Campus',
+    studentsCount: '17,000+ On-Campus',
+    avgPackage: '₹20.5 LPA',
+    highestPackage: '₹60.75 LPA',
+    placementPct: '97%',
+    topRecruiters: 'Google, Microsoft, Apple, McKinsey, Goldman Sachs, Amazon, Nvidia, Uber',
+    approvals: ['UGC', 'NAAC A++', 'AICTE', 'NIRF', 'QS World University Rankings'],
+    courses: [
+      {
+        slug: 'bits-btech-cse',
+        title: 'B.Tech in Computer Science & Engineering (Regular Campus)',
+        fee: '₹19,90,000',
+        duration: '4 Years',
+        category: 'ug',
+        mode: 'offline',
+        specializations: 'AI & ML, Cloud Computing, Cyber Security',
+        badge: '⭐ Flagship Campus',
+        badgeColor: 'bg-emerald-100 text-emerald-800',
+        description: 'Premier on-campus undergraduate degree with state-of-the-art computer labs, hackathons, and direct campus placements.',
+        eligibility: '10+2 with Physics, Chemistry, and Math with minimum 75% aggregate.',
+        careerOutcomes: 'Direct recruitments from FAANG and high-frequency trading firms.',
+        avgSalary: '₹22 - ₹60 LPA',
+        skills: 'Data Structures, Algorithms, Distributed Systems, Systems Programming',
+        jobRoles: 'Software Engineer, Systems Architect, Quantitative Analyst',
+      },
+      {
+        slug: 'bits-mba-analytics',
+        title: 'MBA in Business Analytics (Full-Time On-Campus)',
+        fee: '₹11,50,000',
+        duration: '2 Years',
+        category: 'pg',
+        mode: 'offline',
+        specializations: 'Business Analytics, FinTech, Supply Chain',
+        badge: '🔥 High Package',
+        badgeColor: 'bg-orange-100 text-orange-800',
+        description: 'Intensive on-campus residential MBA focusing on quantitative techniques, machine learning, and business management.',
+        eligibility: "Bachelor's degree in Engineering or Science with minimum 60% marks.",
+        careerOutcomes: 'High demand roles in management consulting and corporate analytics.',
+        avgSalary: '₹16 - ₹32 LPA',
+        skills: 'Predictive Modeling, SQL, Python, Business Strategy, Finance',
+        jobRoles: 'Analytics Consultant, Strategy Manager, Product Analyst',
+      },
+    ],
+  },
+  {
+    slug: 'christ-university-bengaluru',
+    name: 'Christ (Deemed to be University) - Central Campus',
+    shortName: 'Christ University',
+    location: 'Bengaluru, Karnataka',
+    fullAddress: 'Hosur Road, Bhavani Nagar, S.G. Palya, Bengaluru - 560029',
+    initials: 'CU',
+    logoGradient: '#1E3A8A',
+    rating: 4.8,
+    ratingCount: '2,900 Reviews',
+    nirfRank: 'Top 20 (BBA/Commerce)',
+    qsRank: 'Top 100 in South Asia',
+    isFeatured: true,
+    mode: 'offline',
+    about: 'Christ University Central Campus in Bengaluru is celebrated for holistic student development, academic discipline, bustling campus cultural life, modern auditoriums, and top-tier corporate recruitment drives.',
+    mission: 'Excellence and Service through holistic education and research.',
+    established: '1969',
+    campusSize: '80+ Acres Lush Campus',
+    studentsCount: '25,000+ Students',
+    avgPackage: '₹8.5 LPA',
+    highestPackage: '₹21.4 LPA',
+    placementPct: '94%',
+    topRecruiters: 'Deloitte, Ernst & Young, KPMG, PwC, Goldman Sachs, Amazon, Bain & Company',
+    approvals: ['UGC', 'NAAC A+', 'AICTE', 'NIRF'],
+    courses: [
+      {
+        slug: 'christ-bba-honours',
+        title: 'BBA (Honours) - Regular On-Campus',
+        fee: '₹7,20,000',
+        duration: '3 Years',
+        category: 'ug',
+        mode: 'offline',
+        specializations: 'Finance, Marketing, Human Resource Management',
+        badge: '🏆 #1 in India',
+        badgeColor: 'bg-blue-100 text-blue-800',
+        description: 'India’s top-ranked on-campus undergraduate business administration program with global case studies and internships.',
+        eligibility: '10+2 from recognized board in any stream with minimum 60% marks.',
+        careerOutcomes: 'Direct entry into Big 4 consulting firms, investment banking, and startups.',
+        avgSalary: '₹6.5 - ₹14 LPA',
+        skills: 'Business Strategy, Financial Modeling, Marketing, Communication',
+        jobRoles: 'Business Analyst, Marketing Associate, Financial Analyst',
+      },
+      {
+        slug: 'christ-mba-dual',
+        title: 'MBA (Dual Specialization) - Full-Time Residential',
+        fee: '₹8,90,000',
+        duration: '2 Years',
+        category: 'pg',
+        mode: 'offline',
+        specializations: 'Finance & Marketing, HR & Operations',
+        badge: 'Popular',
+        badgeColor: 'bg-purple-100 text-purple-800',
+        description: 'Dual specialization regular campus MBA with immersion programs and corporate internships.',
+        eligibility: "Bachelor's degree with 50%+ marks and valid MAT/CAT/XAT score.",
+        careerOutcomes: 'Leadership and management roles across leading global MNCs.',
+        avgSalary: '₹8 - ₹18 LPA',
+        skills: 'Leadership, Corporate Strategy, Financial Analysis, Supply Chain',
+        jobRoles: 'Brand Manager, Investment Associate, Operations Manager',
+      },
+    ],
+  },
+  {
+    slug: 'symbiosis-sibm-pune',
+    name: 'Symbiosis Institute of Business Management (SIBM Pune)',
+    shortName: 'SIBM Pune (Campus)',
+    location: 'Lavale, Pune, Maharashtra',
+    fullAddress: 'Gram Lavale, Tal Mulshi, Pune, Maharashtra - 412115',
+    initials: 'SI',
+    logoGradient: '#B91C1C',
+    rating: 4.85,
+    ratingCount: '1,950 Reviews',
+    nirfRank: '17 (Management)',
+    qsRank: 'Top 15 B-Schools India',
+    isFeatured: true,
+    mode: 'offline',
+    about: 'SIBM Pune, nestled atop the scenic Lavale hills, is a top-tier Indian business school offering experiential classroom education, world-class sports facilities, incubation centers, and executive guest lectures.',
+    mission: 'To nurture socially conscious and globally competent business leaders.',
+    established: '1978',
+    campusSize: '300+ Acres Hilltop Campus',
+    studentsCount: '8,000+ Campus Students',
+    avgPackage: '₹26.7 LPA',
+    highestPackage: '₹35.05 LPA',
+    placementPct: '100%',
+    topRecruiters: 'McKinsey, Boston Consulting Group, ITC, P&G, Unilever, Accenture Strategy, Bajaj Finserv',
+    approvals: ['UGC', 'NAAC A++', 'AICTE', 'NIRF', 'AACSB'],
+    courses: [
+      {
+        slug: 'sibm-fulltime-mba',
+        title: 'Full-Time MBA (Residential On-Campus)',
+        fee: '₹22,50,000',
+        duration: '2 Years',
+        category: 'pg',
+        mode: 'offline',
+        specializations: 'Marketing, Finance, HR, Operations & SCM',
+        badge: '🔥 100% Placed',
+        badgeColor: 'bg-red-100 text-red-800',
+        description: 'Flagship residential MBA program with 100% campus placement record and top consulting/FMCG recruiters.',
+        eligibility: "Bachelor's degree with 50%+ marks and SNAP entrance test.",
+        careerOutcomes: 'Fast-track managerial and CXO track programs in Fortune 500 companies.',
+        avgSalary: '₹24 - ₹35 LPA',
+        skills: 'Executive Leadership, Strategic Marketing, Financial Acumen, Global Trade',
+        jobRoles: 'Management Consultant, Area Sales Head, Corporate Finance Manager',
+      },
+    ],
+  },
+  {
+    slug: 'vit-vellore',
+    name: 'Vellore Institute of Technology - Main Campus',
+    shortName: 'VIT Vellore',
+    location: 'Vellore, Tamil Nadu',
+    fullAddress: 'Katpadi, Vellore, Tamil Nadu - 632014',
+    initials: 'VI',
+    logoGradient: '#7C3AED',
+    rating: 4.7,
+    ratingCount: '4,100 Reviews',
+    nirfRank: '11 (Engineering)',
+    qsRank: 'Top 800 World',
+    isFeatured: true,
+    mode: 'offline',
+    about: 'VIT Vellore is one of India’s most modern engineering and tech campuses with ABET accreditation, fully flexible credit system (FFCS), high-tech incubation labs, and international student exchange programs.',
+    mission: 'To transform lives through excellence in education and research.',
+    established: '1984',
+    campusSize: '372 Acres Tech Campus',
+    studentsCount: '35,000+ Campus Learners',
+    avgPackage: '₹9.2 LPA',
+    highestPackage: '₹1.02 Crore',
+    placementPct: '92%',
+    topRecruiters: 'Microsoft, Intel, Qualcomm, Cisco, Amazon, PayPal, Morgan Stanley',
+    approvals: ['UGC', 'NAAC A++', 'AICTE', 'NIRF', 'ABET'],
+    courses: [
+      {
+        slug: 'vit-btech-cse-campus',
+        title: 'B.Tech in Computer Science & Engineering (Campus)',
+        fee: '₹7,80,000',
+        duration: '4 Years',
+        category: 'ug',
+        mode: 'offline',
+        specializations: 'Artificial Intelligence, Cybersecurity, Internet of Things',
+        badge: 'Super Dream Placements',
+        badgeColor: 'bg-emerald-100 text-emerald-800',
+        description: 'ABET-accredited on-campus engineering program with choice-based credit system and world-class research facilities.',
+        eligibility: '10+2 with 60% in PCM and valid VITEEE rank.',
+        careerOutcomes: 'Direct recruitments by tech giants, core R&D labs, and software firms.',
+        avgSalary: '₹10 - ₹44 LPA',
+        skills: 'Full-Stack Development, Machine Learning, Cloud Infrastructure, Data Engineering',
+        jobRoles: 'Software Development Engineer, Cloud Engineer, AI Specialist',
+      },
+      {
+        slug: 'vit-mca-regular',
+        title: 'Master of Computer Applications (MCA) - On-Campus',
+        fee: '₹2,80,000',
+        duration: '2 Years',
+        category: 'pg',
+        mode: 'offline',
+        specializations: 'Enterprise Software, Cloud & DevOps',
+        badge: 'Tech Core',
+        badgeColor: 'bg-cyan-100 text-cyan-800',
+        description: 'Comprehensive on-campus MCA curriculum covering cloud computing, AI, and full-stack enterprise development.',
+        eligibility: 'BCA / B.Sc Computer Science with minimum 60% aggregate.',
+        careerOutcomes: 'Campus placements in tier-1 IT consulting and product firms.',
+        avgSalary: '₹7 - ₹16 LPA',
+        skills: 'DevOps, Enterprise Java, Python, React, Database Architecture',
+        jobRoles: 'Full-Stack Developer, DevOps Engineer, Application Architect',
+      },
+    ],
+  },
+];
+
+async function seedOffline() {
+  for (const c of offlineColleges) {
+    const { approvals, courses, ...data } = c;
+    const college = await prisma.college.upsert({
+      where: { slug: c.slug },
+      create: {
+        ...data,
+      },
+      update: {
+        ...data,
+      },
+    });
+
+    for (const label of approvals) {
+      const app = await prisma.approval.upsert({
+        where: { label },
+        create: { label },
+        update: {},
+      });
+      await prisma.collegeApproval.upsert({
+        where: { collegeId_approvalId: { collegeId: college.id, approvalId: app.id } },
+        create: { collegeId: college.id, approvalId: app.id },
+        update: {},
+      });
+    }
+
+    for (const crs of courses) {
+      await prisma.course.upsert({
+        where: { slug: crs.slug },
+        create: {
+          ...crs,
+          collegeId: college.id,
+        },
+        update: {
+          ...crs,
+          collegeId: college.id,
+        },
+      });
+    }
+    console.log(`Seeded offline college: ${college.name}`);
+  }
+}
+
+seedOffline()
+  .then(() => {
+    console.log('Offline colleges seeded successfully!');
+    process.exit(0);
+  })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });

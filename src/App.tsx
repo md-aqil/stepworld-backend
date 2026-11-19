@@ -4,49 +4,23 @@ import { StepWorldHomepage } from './components/generated/StepWorldHomepage';
 import { DetailPage } from './components/generated/DetailPage';
 import CourseDetailPage from './components/generated/CourseDetailPage';
 import AdminPage from './components/generated/AdminPage';
+import BlogPostPage from './components/generated/BlogPostPage';
 
-let theme: Theme = 'light';
+const theme: Theme = 'light';
 
 type Route =
   | { name: 'home' }
   | { name: 'detail'; slug: string }
   | { name: 'course'; collegeSlug: string; courseSlug: string }
+  | { name: 'blog' }
   | { name: 'admin' };
 
-export const navigate = (path: string) => {
-  if (window.location.pathname + window.location.search === path) return;
-  window.history.pushState({}, '', path);
-  window.dispatchEvent(new PopStateEvent('popstate'));
-};
-
-export const Link = ({
-  to,
-  children,
-  className,
-  onClick,
-}: {
-  to: string;
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-}) => (
-  <a
-    href={to}
-    onClick={(e) => {
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-      e.preventDefault();
-      navigate(to);
-      onClick?.();
-    }}
-    className={className}
-  >
-    {children}
-  </a>
-);
+import { navigate } from './lib/navigation';
 
 const parsePath = (path: string): Route => {
   const p = path.replace(/^\/+/, '');
   if (p.startsWith('admin')) return { name: 'admin' };
+  if (p.startsWith('blog') || p.startsWith('mba-pgdm-admission-2027')) return { name: 'blog' };
   const courseMatch = p.match(/^university\/([\w-]+)\/([\w-]+)/);
   if (courseMatch) return { name: 'course', collegeSlug: courseMatch[1]!, courseSlug: courseMatch[2]! };
   const detailMatch = p.match(/^university\/([\w-]+)/);
@@ -92,6 +66,7 @@ function App() {
   if (route.name === 'admin') return <AdminPage />;
   if (route.name === 'detail') return <DetailPage slug={route.slug} />;
   if (route.name === 'course') return <CourseDetailPage collegeSlug={route.collegeSlug} courseSlug={route.courseSlug} />;
+  if (route.name === 'blog') return <BlogPostPage />;
   return <StepWorldHomepage />;
 }
 
