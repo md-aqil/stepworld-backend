@@ -21,21 +21,3 @@ services:
         value: production
       - key: PORT
         value: 10000
-
-  # Standalone Frontend Static Site (100% Free CDN Hosting)
-  - type: web
-    name: stepworld-web
-    env: static
-    plan: free
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_API_BASE
-        fromService:
-          type: web
-          name: stepworld-app
-          property: host
