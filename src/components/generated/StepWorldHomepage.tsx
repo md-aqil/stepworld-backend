@@ -471,7 +471,7 @@ export const StepWorldHomepage = () => {
             </a>
             <span className="hidden md:inline text-slate-600">|</span>
             <a
-              href="https://maps.app.goo.gl/vGmwMaL4Ue9S4hay6?g_st=aw"
+              href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
               target="_blank"
               rel="noreferrer"
               className="hidden md:flex items-center gap-1.5 text-rose-400 hover:text-rose-300"
@@ -1582,7 +1582,7 @@ export const StepWorldHomepage = () => {
                     <h4 className="text-sm font-bold text-slate-900">Office Location & Directions</h4>
                     <p className="text-xs text-slate-600 mt-0.5">Find us easily on Google Maps for in-person consultation.</p>
                     <a
-                      href="https://maps.app.goo.gl/vGmwMaL4Ue9S4hay6?g_st=aw"
+                      href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-2.5 inline-flex items-center gap-1.5 rounded-lg bg-rose-600 px-3.5 py-1.5 text-xs font-black text-white shadow-xs hover:bg-rose-700 whitespace-nowrap"
@@ -1631,30 +1631,51 @@ export const StepWorldHomepage = () => {
             </div>
 
             {/* MAP CARD */}
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-xs relative overflow-hidden">
-              <div className="flex items-center justify-between mb-4">
-                <StepWorldLogo height={48} />
-                <span className="rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-black">
-                  Open Mon - Sat
-                </span>
-              </div>
-
-              <div className="mt-4 rounded-2xl overflow-hidden border border-slate-200 bg-white p-6 shadow-xs text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 mb-3">
-                  <MapPin className="h-8 w-8" />
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 sm:p-8 shadow-xs relative overflow-hidden flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <StepWorldLogo height={48} />
+                  <span className="rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-black">
+                    Open Mon - Sat
+                  </span>
                 </div>
                 <h4 className="text-lg font-black text-slate-900">StepWorld Educational Office</h4>
-                <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                  Click the link below to open the exact office location in your Google Maps application for real-time driving directions.
+                <p className="text-xs text-slate-500 mt-1 mb-4">
+                  Visit us in person or get real-time GPS driving directions directly on Google Maps.
                 </p>
+              </div>
 
+              {/* Interactive Google Map Embed */}
+              <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-white">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.6701651677167!2d77.31935039999999!3d28.5796656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5cf02902e7f%3A0xd6544a39f18aa38b!2sStepWorld%20Education!5e0!3m2!1sen!2sin!4v1795074362324!5m2!1sen!2sin"
+                  width="100%"
+                  height="260"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="StepWorld Education Office Google Map Location"
+                  className="w-full h-64 sm:h-72"
+                />
+              </div>
+
+              <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                 <a
-                  href="https://maps.app.goo.gl/vGmwMaL4Ue9S4hay6?g_st=aw"
+                  href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md hover:from-rose-700 hover:to-orange-700 transition-all whitespace-nowrap"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 px-5 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md hover:from-rose-700 hover:to-orange-700 transition-all whitespace-nowrap"
                 >
                   <ExternalLink className="h-4 w-4" /> Open in Google Maps App
+                </a>
+                <a
+                  href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20visit%20your%20office%20for%20admission%20counselling"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-3 text-xs font-black uppercase tracking-wider shadow-md transition-all whitespace-nowrap"
+                >
+                  <MessageCircle className="h-4 w-4 fill-current" /> Book Office Visit
                 </a>
               </div>
             </div>
@@ -1684,7 +1705,7 @@ export const StepWorldHomepage = () => {
               </p>
               <div className="pt-2">
                 <a
-                  href="https://maps.app.goo.gl/vGmwMaL4Ue9S4hay6?g_st=aw"
+                  href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-400 hover:text-rose-300 whitespace-nowrap"

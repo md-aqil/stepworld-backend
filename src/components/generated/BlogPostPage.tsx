@@ -132,7 +132,7 @@ export const BlogPostPage: React.FC = () => {
             </a>
             <span className="hidden md:inline text-blue-200">|</span>
             <a
-              href="https://maps.app.goo.gl/vGmwMaL4Ue9S4hay6?g_st=aw"
+              href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
               target="_blank"
               rel="noreferrer"
               className="hidden md:flex items-center gap-1 hover:text-amber-300 transition-colors"
@@ -1205,7 +1205,7 @@ export const BlogPostPage: React.FC = () => {
                       <span>Call: 1800-420-0000 (Toll Free)</span>
                     </a>
                     <a
-                      href="https://maps.app.goo.gl/vGmwMaL4Ue9S4hay6?g_st=aw"
+                      href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
                       target="_blank"
                       rel="noreferrer"
                       className="bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-xl border border-white/20 transition-all flex items-center gap-1.5"
@@ -1213,6 +1213,20 @@ export const BlogPostPage: React.FC = () => {
                       <MapPin className="w-4 h-4 text-amber-300" />
                       <span>Visit StepWorld Office</span>
                     </a>
+                  </div>
+
+                  <div className="mt-5 rounded-2xl overflow-hidden border border-white/20 shadow-lg">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.6701651677167!2d77.31935039999999!3d28.5796656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5cf02902e7f%3A0xd6544a39f18aa38b!2sStepWorld%20Education!5e0!3m2!1sen!2sin!4v1795074362324!5m2!1sen!2sin"
+                      width="100%"
+                      height="200"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      title="StepWorld Education Office Location Map"
+                      className="w-full h-44"
+                    />
                   </div>
                 </div>
 
@@ -1361,7 +1375,7 @@ export const BlogPostPage: React.FC = () => {
               </p>
               <div className="flex items-center gap-3 pt-1">
                 <a
-                  href="https://maps.app.goo.gl/vGmwMaL4Ue9S4hay6?g_st=aw"
+                  href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 font-semibold"
