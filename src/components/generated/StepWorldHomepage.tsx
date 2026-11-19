@@ -476,12 +476,7 @@ export const StepWorldHomepage = () => {
               className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-bold"
             >
               <MessageCircle className="w-3.5 h-3.5 fill-current" />
-              <span>WhatsApp: +91 99102 45535</span>
-            </a>
-            <span className="hidden md:inline text-slate-600">|</span>
-            <a href="tel:18004200000" className="hidden sm:flex items-center gap-1.5 text-slate-300 hover:text-white">
-              <Phone className="w-3.5 h-3.5 text-emerald-400" />
-              <span>1800-420-0000</span>
+              <span>WhatsApp Chat</span>
             </a>
             <span className="hidden md:inline text-slate-600">|</span>
             <a
@@ -533,23 +528,16 @@ export const StepWorldHomepage = () => {
 
             </div>
 
-            {/* Quick Action Buttons - WhatsApp & Phone */}
+            {/* Quick Action Button - WhatsApp */}
             <div className="hidden lg:flex items-center space-x-2 whitespace-nowrap shrink-0">
               <a
                 href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 text-xs font-black uppercase tracking-wider shadow-sm transition-all whitespace-nowrap shrink-0"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 text-xs font-black uppercase tracking-wider shadow-sm transition-all whitespace-nowrap shrink-0"
               >
-                <MessageCircle className="h-3.5 w-3.5 fill-current" />
-                <span className="whitespace-nowrap">WhatsApp (99102 45535)</span>
-              </a>
-              <a
-                href="tel:18004200000"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 text-xs font-bold uppercase tracking-wider shadow-sm transition-all whitespace-nowrap shrink-0"
-              >
-                <Phone className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                <span className="whitespace-nowrap">1800-420-0000</span>
+                <MessageCircle className="h-4 w-4 fill-current" />
+                <span className="whitespace-nowrap">WhatsApp Us</span>
               </a>
             </div>
 

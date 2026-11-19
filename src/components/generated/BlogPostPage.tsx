@@ -126,9 +126,13 @@ export const BlogPostPage: React.FC = () => {
             <span className="sm:hidden">MBA Admissions 2027 Open</span>
           </div>
           <div className="flex items-center gap-4 text-xs font-medium">
-            <a href="tel:18004200000" className="flex items-center gap-1 hover:text-amber-300 transition-colors">
-              <Phone className="w-3.5 h-3.5 text-amber-300" />
-              <span>1800-420-0000</span>
+            <a
+              href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1 text-emerald-300 hover:text-emerald-200 transition-colors font-bold"
+            >
+              <span>WhatsApp Us</span>
             </a>
             <span className="hidden md:inline text-blue-200">|</span>
             <a
