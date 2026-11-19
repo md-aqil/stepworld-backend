@@ -5,6 +5,7 @@ import { DetailPage } from './components/generated/DetailPage';
 import CourseDetailPage from './components/generated/CourseDetailPage';
 import AdminPage from './components/generated/AdminPage';
 import BlogPostPage from './components/generated/BlogPostPage';
+import WhatsAppChatBubble from './components/WhatsAppChatBubble';
 
 const theme: Theme = 'light';
 
@@ -63,11 +64,20 @@ function App() {
     };
   }, []);
 
-  if (route.name === 'admin') return <AdminPage />;
-  if (route.name === 'detail') return <DetailPage slug={route.slug} />;
-  if (route.name === 'course') return <CourseDetailPage collegeSlug={route.collegeSlug} courseSlug={route.courseSlug} />;
-  if (route.name === 'blog') return <BlogPostPage />;
-  return <StepWorldHomepage />;
+  const renderPage = () => {
+    if (route.name === 'admin') return <AdminPage />;
+    if (route.name === 'detail') return <DetailPage slug={route.slug} />;
+    if (route.name === 'course') return <CourseDetailPage collegeSlug={route.collegeSlug} courseSlug={route.courseSlug} />;
+    if (route.name === 'blog') return <BlogPostPage />;
+    return <StepWorldHomepage />;
+  };
+
+  return (
+    <>
+      {renderPage()}
+      {route.name !== 'admin' && <WhatsAppChatBubble />}
+    </>
+  );
 }
 
 export default App;

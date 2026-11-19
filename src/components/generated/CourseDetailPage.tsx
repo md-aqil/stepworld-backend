@@ -23,6 +23,8 @@ import {
   Globe2,
   ArrowRight,
   MessageCircle,
+  Instagram,
+  Facebook,
 } from 'lucide-react';
 import ApplyModal from './ApplyModal';
 
@@ -296,8 +298,12 @@ const Hero = ({ course, college, onApply }: { course: ApiCourse; college: ApiCol
           >
             Get Free Counselling Now
           </button>
-          <button className="mt-3 w-full rounded-xl border-2 border-blue-600 py-3 text-sm font-bold text-blue-600 transition-colors hover:bg-blue-50">
-            Download Brochure
+          <button
+            onClick={onApply}
+            className="mt-3 w-full rounded-xl border-2 border-emerald-600 py-3 text-xs font-black uppercase tracking-wider text-emerald-700 transition-colors hover:bg-emerald-50 cursor-pointer flex items-center justify-center gap-1.5"
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+            Get Brochure on WhatsApp
           </button>
 
           <div className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 text-xs font-semibold text-slate-600">
@@ -714,6 +720,45 @@ const Footer = () => (
           <div className="flex items-center"><StepWorldLogo height={68} variant="footer" /></div>
           <p className="text-blue-400 font-medium">Get the right guidance with us</p>
           <p className="text-sm font-medium text-slate-400">info@stepworld.com</p>
+
+          {/* SOCIAL MEDIA */}
+          <div className="pt-2">
+            <p className="text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2">Connect With Us</p>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#25D366] text-white hover:scale-110 hover:shadow-lg hover:shadow-emerald-900/30 transition-all cursor-pointer"
+                title="WhatsApp: 99102 45535"
+                aria-label="WhatsApp"
+              >
+                <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 20.16C10.57 20.16 9.12 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.16 12.05 20.16ZM16.57 14.39C16.32 14.27 15.11 13.67 14.88 13.58C14.66 13.5 14.5 13.46 14.33 13.71C14.17 13.96 13.71 14.5 13.56 14.66C13.42 14.83 13.28 14.85 13.03 14.73C12.78 14.6 11.99 14.34 11.04 13.5C10.3 12.84 9.8 12.03 9.66 11.78C9.51 11.53 9.64 11.4 9.77 11.27C9.88 11.16 10.02 10.98 10.15 10.83C10.27 10.68 10.31 10.58 10.39 10.41C10.48 10.24 10.43 10.1 10.37 9.97C10.31 9.85 9.81 8.63 9.61 8.13C9.4 7.63 9.2 7.7 9.05 7.69C8.91 7.69 8.74 7.69 8.58 7.69C8.41 7.69 8.14 7.75 7.91 8C7.68 8.25 7.03 8.86 7.03 10.1C7.03 11.34 7.93 12.54 8.06 12.71C8.18 12.87 9.83 15.42 12.36 16.51C12.96 16.77 13.43 16.92 13.79 17.04C14.4 17.23 14.95 17.2 15.39 17.14C15.88 17.07 16.89 16.53 17.1 15.95C17.31 15.37 17.31 14.87 17.24 14.76C17.18 14.65 17.03 14.52 16.78 14.39H16.57Z" />
+                </svg>
+              </a>
+              <a
+                href="https://www.instagram.com/stepworldeducation?obrf=NzRxMzdsbGF3Mmwz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white hover:scale-110 hover:shadow-lg hover:shadow-rose-900/30 transition-all cursor-pointer"
+                title="Instagram: @stepworldeducation"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61581972416599"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1877F2] text-white hover:scale-110 hover:shadow-lg hover:shadow-blue-900/30 transition-all cursor-pointer"
+                title="Facebook: StepWorld"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
         </div>
         <div>
           <h4 className="text-white font-bold mb-4">Programs</h4>
@@ -732,7 +777,23 @@ const Footer = () => (
           </ul>
         </div>
       </div>
-      <p className="text-center text-xs text-slate-500">© 2026 StepWorld, Inc. All Rights Reserved.</p>
+      <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p>© 2015–{new Date().getFullYear()} StepWorld Education Consultancy. All Rights Reserved.</p>
+        <div className="flex items-center gap-4 text-slate-400">
+          <a href="https://wa.me/919910245535" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors flex items-center gap-1 font-bold">
+            WhatsApp: 99102 45535
+          </a>
+          <span>·</span>
+          <a href="https://www.instagram.com/stepworldeducation?obrf=NzRxMzdsbGF3Mmwz" target="_blank" rel="noopener noreferrer" className="hover:text-rose-400 transition-colors">
+            Instagram
+          </a>
+          <span>·</span>
+          <a href="https://www.facebook.com/profile.php?id=61581972416599" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+            Facebook
+          </a>
+        </div>
+        <p>Direct university tuition fees should be paid directly to the respective institution.</p>
+      </div>
     </div>
   </footer>
 );
