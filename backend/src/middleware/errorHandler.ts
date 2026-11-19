@@ -26,5 +26,6 @@ export const errorHandler = (
     return;
   }
   console.error('[errorHandler]', err);
-  res.status(500).json({ error: 'Internal Server Error' });
+  const message = err instanceof Error ? err.message : String(err);
+  res.status(500).json({ error: 'Internal Server Error', message });
 };

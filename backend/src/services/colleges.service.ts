@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma.js';
 import { HttpError } from '../middleware/errorHandler.js';
 import type { CreateCollegeInput, UpdateCollegeInput } from '../schemas/index.js';
+import { FALLBACK_COLLEGES } from '../data/fallbackData.js';
 
 const includeRelations = {
   approvals: { include: { approval: true } },
@@ -11,19 +12,31 @@ const includeRelations = {
 };
 
 export const listColleges = async () => {
-  return prisma.college.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: includeRelations,
-  });
+  try {
+    const colleges = await prisma.college.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: includeRelations,
+    });
+    if (colleges && colleges.length > 0) return colleges;
+  } catch (err) {
+    console.warn('[listColleges] Database query failed, serving fallback colleges:', (err as Error)?.message);
+  }
+  return FALLBACK_COLLEGES;
 };
 
 export const getCollegeBySlug = async (slug: string) => {
-  const college = await prisma.college.findUnique({
-    where: { slug },
-    include: includeRelations,
-  });
-  if (!college) throw new HttpError(404, `College '${slug}' not found`);
-  return college;
+  try {
+    const college = await prisma.college.findUnique({
+      where: { slug },
+      include: includeRelations,
+    });
+    if (college) return college;
+  } catch (err) {
+    console.warn(`[getCollegeBySlug] Query for '${slug}' failed:`, (err as Error)?.message);
+  }
+  const fallback = FALLBACK_COLLEGES.find((c) => c.slug === slug);
+  if (fallback) return fallback;
+  throw new HttpError(404, `College '${slug}' not found`);
 };
 
 export const createCollege = async (input: CreateCollegeInput) => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { apiUrl } from '../../lib/api';
 import { Link } from '../../lib/router';
+import { FALLBACK_COLLEGES, FALLBACK_COURSES } from '../../data/fallbackData';
 import {
   Search,
   ChevronDown,
@@ -342,9 +343,9 @@ const getCourseMode = (course: {
 };
 
 export const StepWorldHomepage = () => {
-  const [colleges, setColleges] = useState<ApiCollege[]>([]);
-  const [courses, setCourses] = useState<ApiCourse[]>([]);
-  const [, setLoading] = useState(true);
+  const [colleges, setColleges] = useState<ApiCollege[]>(FALLBACK_COLLEGES);
+  const [courses, setCourses] = useState<ApiCourse[]>(FALLBACK_COURSES);
+  const [, setLoading] = useState(false);
   const [, setError] = useState<string | null>(null);
 
   // User requirement: primary focus on offline, but make both online and offline crystal clear
@@ -361,13 +362,23 @@ export const StepWorldHomepage = () => {
     let cancelled = false;
     const load = async () => {
       try {
-        const [c, co] = await Promise.all([
-          fetch(apiUrl('/api/colleges')).then((r) => r.json()),
-          fetch(apiUrl('/api/courses')).then((r) => r.json()),
+        const [cRes, coRes] = await Promise.allSettled([
+          fetch(apiUrl('/api/colleges')),
+          fetch(apiUrl('/api/courses')),
         ]);
         if (!cancelled) {
-          setColleges(c);
-          setCourses(co);
+          if (cRes.status === 'fulfilled' && cRes.value.ok) {
+            const c = await cRes.value.json();
+            if (Array.isArray(c) && c.length > 0) {
+              setColleges(c);
+            }
+          }
+          if (coRes.status === 'fulfilled' && coRes.value.ok) {
+            const co = await coRes.value.json();
+            if (Array.isArray(co) && co.length > 0) {
+              setCourses(co);
+            }
+          }
         }
       } catch (e) {
         if (!cancelled) setError((e as Error).message);
@@ -381,7 +392,10 @@ export const StepWorldHomepage = () => {
     };
   }, []);
 
-  const collegeById = useMemo(() => Object.fromEntries(colleges.map((c) => [c.id, c])), [colleges]);
+  const safeColleges = useMemo(() => (Array.isArray(colleges) && colleges.length > 0 ? colleges : FALLBACK_COLLEGES), [colleges]);
+  const safeCourses = useMemo(() => (Array.isArray(courses) && courses.length > 0 ? courses : FALLBACK_COURSES), [courses]);
+
+  const collegeById = useMemo(() => Object.fromEntries(safeColleges.map((c) => [c.id, c])), [safeColleges]);
 
   // Helper to test if course matches a given stream id
   const courseMatchesStream = (c: ApiCourse, streamId: string) => {
@@ -411,7 +425,7 @@ export const StepWorldHomepage = () => {
 
   // Filtered courses based on mode, level, search, and stream filter
   const allFilteredCourses = useMemo(() => {
-    return courses.filter((c) => {
+    return safeCourses.filter((c) => {
       const mode = getCourseMode(c);
       if (globalMode !== 'all' && mode !== globalMode) return false;
       if (selectedLevel !== 'all' && c.category !== selectedLevel) return false;
@@ -427,10 +441,10 @@ export const StepWorldHomepage = () => {
       }
       return true;
     });
-  }, [courses, globalMode, selectedLevel, selectedStreamFilter, courseSearch, collegeById]);
+  }, [safeCourses, globalMode, selectedLevel, selectedStreamFilter, courseSearch, collegeById]);
 
-  const offlineCoursesCount = courses.filter((c) => getCourseMode(c) === 'offline').length;
-  const onlineCoursesCount = courses.filter((c) => getCourseMode(c) === 'online').length;
+  const offlineCoursesCount = safeCourses.filter((c) => getCourseMode(c) === 'offline').length;
+  const onlineCoursesCount = safeCourses.filter((c) => getCourseMode(c) === 'online').length;
 
   const handleSelectModeAndScroll = (mode: 'offline' | 'online' | 'all') => {
     setGlobalMode(mode);
@@ -1340,7 +1354,7 @@ export const StepWorldHomepage = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {colleges
+            {safeColleges
               .filter((col) => (globalMode === 'all' ? true : getCollegeMode(col) === globalMode))
               .map((col) => {
                 const isOffline = getCollegeMode(col) === 'offline';

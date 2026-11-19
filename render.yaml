@@ -11,7 +11,7 @@ services:
     runtime: node
     plan: free
     buildCommand: npm install --include=dev && npm run build && cd backend && npm install --include=dev && npx prisma generate && npm run build
-    startCommand: cd backend && (npx prisma migrate deploy || true) && (npm run seed:comprehensive || true) && node dist/server.js
+    startCommand: cd backend && npx prisma db push --accept-data-loss && (npm run seed:comprehensive || true) && node dist/server.js
     envVars:
       - key: DATABASE_URL
         fromDatabase:
