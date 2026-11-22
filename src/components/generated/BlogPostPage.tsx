@@ -35,6 +35,7 @@ import {
   Send,
   Instagram,
   Facebook,
+  MessageCircle,
 } from 'lucide-react';
 import { apiUrl } from '../../lib/api';
 
