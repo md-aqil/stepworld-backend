@@ -43,16 +43,6 @@ export const BlogPostPage: React.FC = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [specSearch, setSpecSearch] = useState('');
   const [selectedSpecIndex, setSelectedSpecIndex] = useState<number | null>(null);
-  const [leadForm, setLeadForm] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    city: '',
-    mode: 'offline', // 'offline' or 'online'
-    specialization: 'Marketing',
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
 
   // Set document title and SEO meta
   useEffect(() => {
@@ -82,35 +72,6 @@ export const BlogPostPage: React.FC = () => {
       s.description.toLowerCase().includes(specSearch.toLowerCase()) ||
       s.subjects.some((sub) => sub.toLowerCase().includes(specSearch.toLowerCase()))
   );
-
-  const handleSubmitLead = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!leadForm.name || !leadForm.phone) return;
-    setSubmitting(true);
-    const waText = encodeURIComponent(
-      `Hi StepWorld! My name is ${leadForm.name}. I am looking for MBA / PGDM Admission counselling for ${leadForm.specialization || 'General'} (${leadForm.mode} mode). Phone: ${leadForm.phone}, City: ${leadForm.city || 'India'}. Please guide me.`
-    );
-    try {
-      await fetch(apiUrl('/leads'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: leadForm.name,
-          phone: leadForm.phone,
-          email: leadForm.email,
-          city: leadForm.city,
-          notes: `MBA Guide Enquiry: ${leadForm.specialization} (${leadForm.mode} mode)`,
-          status: 'NEW',
-        }),
-      });
-    } catch {
-      // ignore
-    } finally {
-      setSubmitting(false);
-      setSubmitted(true);
-      window.open(`https://wa.me/919910245535?text=${waText}`, '_blank');
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
@@ -190,11 +151,14 @@ export const BlogPostPage: React.FC = () => {
           {/* Right Action */}
           <div className="flex items-center gap-3 shrink-0">
             <a
-              href="#counselling"
-              className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-xl font-bold text-xs shadow-sm hover:from-blue-700 hover:to-indigo-700 transition-all whitespace-nowrap"
+              href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20MBA%20counselling"
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-black text-xs shadow-sm transition-all whitespace-nowrap"
             >
-              <span>Free Counselling</span>
-              <ArrowRight className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4 fill-current" />
+              <span>WhatsApp Counselling</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
             <Link
               to="/"
@@ -1239,107 +1203,59 @@ export const BlogPostPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Lead Form */}
+                {/* Instant WhatsApp Counselling Card */}
                 <div className="lg:col-span-5">
-                  <div className="bg-white text-slate-900 rounded-2xl p-6 shadow-2xl border border-slate-100">
-                    <h3 className="font-bold text-slate-900 text-lg mb-1">
-                      Request Free MBA Counselling
-                    </h3>
-                    <p className="text-xs text-slate-500 mb-4">
-                      Get expert shortlist of colleges matching your budget & profile.
-                    </p>
-
-                    {submitted ? (
-                      <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
-                        <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto mb-2" />
-                        <h4 className="font-bold text-emerald-900 text-sm">Counselling Requested!</h4>
-                        <p className="text-xs text-emerald-700 mt-1">
-                          Our senior MBA counsellor will contact you shortly on {leadForm.phone}.
-                        </p>
+                  <div className="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-[11px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                          Senior Counsellor Online
+                        </span>
                       </div>
-                    ) : (
-                      <form onSubmit={handleSubmitLead} className="space-y-3 text-xs">
-                        <div>
-                          <label className="block text-slate-700 font-semibold mb-1">Full Name *</label>
-                          <input
-                            type="text"
-                            required
-                            placeholder="e.g. Rahul Sharma"
-                            value={leadForm.name}
-                            onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                          />
-                        </div>
 
-                        <div>
-                          <label className="block text-slate-700 font-semibold mb-1">Mobile Number *</label>
-                          <input
-                            type="tel"
-                            required
-                            placeholder="e.g. +91 9876543210"
-                            value={leadForm.phone}
-                            onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                          />
-                        </div>
+                      <h3 className="font-black text-slate-900 text-xl sm:text-2xl tracking-tight mb-2">
+                        Get Free MBA Counselling on WhatsApp
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 mb-5 leading-relaxed">
+                        No tedious forms to fill! Connect directly with our senior MBA advisors on WhatsApp to receive college cutoffs, fee structures, and direct admission eligibility in minutes.
+                      </p>
 
-                        <div>
-                          <label className="block text-slate-700 font-semibold mb-1">Email Address</label>
-                          <input
-                            type="email"
-                            placeholder="e.g. rahul@example.com"
-                            value={leadForm.email}
-                            onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                          />
+                      <div className="space-y-2.5 mb-6">
+                        <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>Direct college shortlisting matching your budget</span>
                         </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                          <div>
-                            <label className="block text-slate-700 font-semibold mb-1">Program Mode</label>
-                            <select
-                              value={leadForm.mode}
-                              onChange={(e) => setLeadForm({ ...leadForm, mode: e.target.value })}
-                              className="w-full px-2.5 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden bg-white text-slate-800"
-                            >
-                              <option value="offline">On-Campus (Offline)</option>
-                              <option value="online">Online MBA</option>
-                              <option value="both">Open to Both</option>
-                            </select>
-                          </div>
-                          <div>
-                            <label className="block text-slate-700 font-semibold mb-1">Current City</label>
-                            <input
-                              type="text"
-                              placeholder="e.g. Noida / Delhi"
-                              value={leadForm.city}
-                              onChange={(e) => setLeadForm({ ...leadForm, city: e.target.value })}
-                              className="w-full px-2.5 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                            />
-                          </div>
+                        <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>Direct MBA admission pathways without CAT / XAT</span>
                         </div>
-
-                        <div>
-                          <label className="block text-slate-700 font-semibold mb-1">Preferred Specialization</label>
-                          <input
-                            type="text"
-                            placeholder="e.g. Marketing / Finance / Business Analytics"
-                            value={leadForm.specialization}
-                            onChange={(e) => setLeadForm({ ...leadForm, specialization: e.target.value })}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                          />
+                        <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>Regular campus & UGC-approved online MBA options</span>
                         </div>
+                        <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>100% Free · Zero consultancy fee · Instant reply</span>
+                        </div>
+                      </div>
+                    </div>
 
-                        <button
-                          type="submit"
-                          disabled={submitting}
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 text-xs sm:text-sm mt-3"
-                        >
-                          <Send className="w-4 h-4" />
-                          <span>{submitting ? 'Submitting...' : 'Schedule My Free Session'}</span>
-                        </button>
-                      </form>
-                    )}
+                    <div className="pt-2">
+                      <a
+                        href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20am%20interested%20in%20Free%20MBA%20/%20PGDM%20Admission%20Counselling.%20Please%20guide%20me."
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full bg-[#25D366] hover:bg-emerald-600 text-white font-black py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm uppercase tracking-wider group cursor-pointer"
+                      >
+                        <MessageCircle className="w-5 h-5 fill-current" />
+                        <span>Chat on WhatsApp (+91 99102 45535)</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                      <p className="text-[11px] text-center text-slate-400 font-medium mt-2">
+                        Typical response time: Under 5 minutes
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
