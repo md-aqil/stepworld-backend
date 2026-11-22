@@ -502,30 +502,37 @@ export const StepWorldHomepage = () => {
             </Link>
 
             {/* Desktop Nav Links - Clean & Standard */}
-            <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 text-xs xl:text-sm font-bold text-slate-700 whitespace-nowrap shrink-0">
-              <a href="#course-categories" className="hover:text-emerald-600 transition-colors whitespace-nowrap">
-                Course Categories
-              </a>
-              <a href="#all-courses" className="hover:text-emerald-600 transition-colors whitespace-nowrap">
-                All Courses
-              </a>
+            <div className="hidden lg:flex items-center space-x-3 xl:space-x-5 text-xs xl:text-sm font-bold text-slate-700 whitespace-nowrap shrink-0">
+              <Link
+                to="/offline-courses"
+                className="flex items-center gap-1.5 text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg border border-emerald-200 transition-colors whitespace-nowrap"
+              >
+                <Building2 className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                <span>Regular Campus</span>
+              </Link>
+              <Link
+                to="/online-degrees"
+                className="flex items-center gap-1.5 text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-200 transition-colors whitespace-nowrap"
+              >
+                <Laptop className="w-3.5 h-3.5 text-blue-700 shrink-0" />
+                <span>Online Degrees</span>
+              </Link>
               <a href="#colleges" className="hover:text-emerald-600 transition-colors whitespace-nowrap">
                 Universities
               </a>
-              <a href="#why-choose" className="hover:text-emerald-600 transition-colors whitespace-nowrap">
-                Why StepWorld
-              </a>
               <Link
                 to="/blog/mba-pgdm-admission-2027-entrance-exams-direct-admission"
-                className="flex items-center gap-1.5 text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors whitespace-nowrap shrink-0"
+                className="flex items-center gap-1.5 text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200 hover:bg-amber-100 transition-colors whitespace-nowrap shrink-0"
               >
                 <Sparkles className="h-3.5 w-3.5 text-amber-500 shrink-0" />
                 <span>MBA 2027 Guide</span>
               </Link>
+              <a href="#why-choose" className="hover:text-emerald-600 transition-colors whitespace-nowrap">
+                Why StepWorld
+              </a>
               <a href="#faqs" className="hover:text-emerald-600 transition-colors whitespace-nowrap">
                 FAQs
               </a>
-
             </div>
 
             {/* Quick Action Button - WhatsApp */}
@@ -557,42 +564,42 @@ export const StepWorldHomepage = () => {
         {/* Mobile Dropdown */}
         {isNavOpen && (
           <div className="lg:hidden bg-white border-t border-slate-200 px-4 pt-3 pb-6 space-y-2 shadow-xl">
-            
-
+            <Link
+              to="/offline-courses"
+              onClick={() => setIsNavOpen(false)}
+              className="flex items-center gap-2 px-3 py-2.5 text-sm font-black text-emerald-800 bg-emerald-50 rounded-xl border border-emerald-200"
+            >
+              <Building2 className="w-4 h-4 text-emerald-700" />
+              <span>🏫 Regular On-Campus Degrees</span>
+            </Link>
+            <Link
+              to="/online-degrees"
+              onClick={() => setIsNavOpen(false)}
+              className="flex items-center gap-2 px-3 py-2.5 text-sm font-black text-blue-800 bg-blue-50 rounded-xl border border-blue-200"
+            >
+              <Laptop className="w-4 h-4 text-blue-700" />
+              <span>💻 UGC-Approved Online Degrees</span>
+            </Link>
             <Link
               to="/blog/mba-pgdm-admission-2027-entrance-exams-direct-admission"
               onClick={() => setIsNavOpen(false)}
-              className="block px-3 py-2 text-sm font-bold text-blue-700 bg-blue-50 rounded-lg border border-blue-200"
+              className="block px-3 py-2 text-sm font-bold text-amber-800 bg-amber-50 rounded-lg border border-amber-200"
             >
               🔥 MBA & PGDM Admission 2027 Guide
             </Link>
-            <a
-              href="#course-categories"
-              onClick={() => setIsNavOpen(false)}
-              className="block px-3 py-2 text-sm font-bold text-slate-800"
-            >
-              📚 Course Categories (UG & PG)
-            </a>
-            <a
-              href="#mode-comparison"
-              onClick={() => setIsNavOpen(false)}
-              className="block px-3 py-2 text-sm font-medium text-slate-700"
-            >
-              ⚖️ Offline vs Online Comparison
-            </a>
-            <a
-              href="#all-courses"
-              onClick={() => setIsNavOpen(false)}
-              className="block px-3 py-2 text-sm font-medium text-slate-700"
-            >
-              🎓 All {courses.length} Courses Directory
-            </a>
             <a
               href="#colleges"
               onClick={() => setIsNavOpen(false)}
               className="block px-3 py-2 text-sm font-medium text-slate-700"
             >
               🏛️ Partner Universities & Campuses
+            </a>
+            <a
+              href="#course-categories"
+              onClick={() => setIsNavOpen(false)}
+              className="block px-3 py-2 text-sm font-medium text-slate-700"
+            >
+              📚 Course Disciplines & Streams
             </a>
             <a
               href="#why-choose"
@@ -643,221 +650,141 @@ export const StepWorldHomepage = () => {
             Whether you seek the full university experience of <strong>regular on-campus offline courses</strong> (our primary focus with lab practicals, hostel life, and placement drives) or the convenience of <strong>accredited online degree programs</strong>, StepWorld provides personalized counselling and direct admission support.
           </p>
 
-          {/* QUICK COURSE & DEGREE MATCHER - REDESIGNED FOR HIGH CONVERSION & ZERO TEXT-CUTTING */}
-          <div className="mt-8 w-full max-w-4xl bg-white rounded-3xl border border-slate-200/90 shadow-xl p-5 sm:p-7 text-left">
-            {/* Header with icon, title, and live match pill */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 text-amber-700 shrink-0">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-black text-slate-900 tracking-tight">
-                    Quick Course & Degree Matcher
-                  </h3>
-                  <p className="text-[11px] text-slate-500 font-medium">
-                    Filter on-campus and online programs in 30 seconds
-                  </p>
-                </div>
-              </div>
+          {/* TWO DEDICATED GATEWAYS: REGULAR CAMPUS VS UGC ONLINE DEGREES */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl text-left">
+            {/* DOOR 1: REGULAR ON-CAMPUS (OFFLINE) DEGREES */}
+            <div className="rounded-3xl border-2 border-emerald-500 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 p-6 sm:p-8 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
 
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full shadow-xs">
-                  {allFilteredCourses.length} Programs Available
-                </span>
-              </div>
-            </div>
-
-            {/* Filter Controls */}
-            <div className="space-y-4">
-              {/* Step 1: Study Mode Toggle Pills (Clean, Modern & Tactile) */}
               <div>
-                <label className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">
-                  1. Choose Study Mode:
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setGlobalMode('offline')}
-                    className={`py-2.5 px-3 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-2 border ${
-                      globalMode === 'offline'
-                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    <Building2 className="w-4 h-4 shrink-0" />
-                    <span className="truncate">🏫 Regular Campus ({offlineCoursesCount})</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setGlobalMode('online')}
-                    className={`py-2.5 px-3 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-2 border ${
-                      globalMode === 'online'
-                        ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    <Laptop className="w-4 h-4 shrink-0" />
-                    <span className="truncate">💻 Online Degrees ({onlineCoursesCount})</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setGlobalMode('all')}
-                    className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 border ${
-                      globalMode === 'all'
-                        ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    <Layers className="w-4 h-4 shrink-0" />
-                    <span className="truncate">Show Both ({courses.length})</span>
-                  </button>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="inline-flex items-center gap-1.5 bg-emerald-600 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-xs">
+                    <Building2 className="w-3.5 h-3.5 shrink-0" />
+                    Primary Focus · Regular Campus
+                  </span>
+                  <span className="text-xs font-black text-emerald-800 bg-emerald-100 px-3 py-1 rounded-lg">
+                    {offlineCoursesCount} Programs
+                  </span>
                 </div>
-              </div>
 
-              {/* Step 2 & 3: Dropdowns + Ample Space Search Button */}
-              <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1">
-                {/* Academic Stream Dropdown (5 cols) */}
-                <div className="sm:col-span-5">
-                  <label className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1.5">
-                    2. Academic Discipline
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={selectedStreamFilter}
-                      onChange={(e) => setSelectedStreamFilter(e.target.value)}
-                      className="w-full appearance-none rounded-xl border border-slate-300 bg-slate-50 py-3 pl-3.5 pr-8 text-xs font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:bg-white shadow-xs cursor-pointer"
-                    >
-                      <option value="all">All 14 Disciplines</option>
-                      {COURSE_STREAMS.map((s) => (
-                        <option key={s.id} value={s.id}>{s.name}</option>
-                      ))}
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight group-hover:text-emerald-700 transition-colors">
+                  Regular On-Campus Offline Degrees
+                </h2>
+                <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Full-time on-campus university education with daily physical lectures, high-tech lab practicals, corporate placement drives, and hostel accommodation.
+                </p>
+
+                <div className="mt-5 space-y-2.5">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>100% In-Person Physical Classes & Lab Practical Training</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Top On-Campus Corporate Recruitment & Placement Cells</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Hostel Stay, Sports Complex & Full Campus Life</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Direct University Seat Reservation & Cutoff Advisory</span>
                   </div>
                 </div>
 
-                {/* Degree Level (3 cols) */}
-                <div className="sm:col-span-3">
-                  <label className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1.5">
-                    3. Degree Level
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={selectedLevel}
-                      onChange={(e) => setSelectedLevel(e.target.value as any)}
-                      className="w-full appearance-none rounded-xl border border-slate-300 bg-slate-50 py-3 pl-3.5 pr-8 text-xs font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:bg-white shadow-xs cursor-pointer"
-                    >
-                      <option value="all">All (UG + PG)</option>
-                      <option value="ug">Undergrad (UG)</option>
-                      <option value="pg">Postgrad (PG)</option>
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                {/* Popular degrees */}
+                <div className="mt-5 pt-4 border-t border-emerald-100">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 block mb-2">
+                    Popular Regular Degrees:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {['B.Tech', 'MBBS', 'BBA Honours', 'B.Com', 'Law (LL.B)', 'MBA', 'BCA', 'B.Des'].map((deg) => (
+                      <span key={deg} className="text-[11px] font-bold bg-white text-emerald-900 border border-emerald-200 px-2 py-0.5 rounded-md shadow-2xs">
+                        {deg}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-2">
+                <Link
+                  to="/offline-courses"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs sm:text-sm uppercase tracking-wider py-4 px-6 shadow-md hover:shadow-lg transition-all"
+                >
+                  <Building2 className="w-4 h-4" />
+                  <span>Open Regular Campus Portal ({offlineCoursesCount}+)</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* DOOR 2: UGC-APPROVED ONLINE DEGREES */}
+            <div className="rounded-3xl border-2 border-blue-500 bg-gradient-to-br from-blue-50/70 via-white to-blue-50/30 p-6 sm:p-8 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
+
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="inline-flex items-center gap-1.5 bg-blue-600 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-xs">
+                    <Laptop className="w-3.5 h-3.5 shrink-0" />
+                    Flexible Study · UGC-Approved
+                  </span>
+                  <span className="text-xs font-black text-blue-800 bg-blue-100 px-3 py-1 rounded-lg">
+                    {onlineCoursesCount} Programs
+                  </span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight group-hover:text-blue-700 transition-colors">
+                  UGC-Approved Online Degrees
+                </h2>
+                <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Flexible accredited degree courses designed for working professionals and remote students. Learn from top universities from home at affordable semester fees.
+                </p>
+
+                <div className="mt-5 space-y-2.5">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>100% Online Classes & Interactive LMS Access</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>Study While Working (Weekend & Evening Batches)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>UGC-DEB & NAAC A+ Recognized Degree Parity</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>Affordable Semester Fees with 0% Cost EMI Support</span>
                   </div>
                 </div>
 
-                {/* Search CTA Button - 4 cols with generous padding & NO TEXT CLIPPING */}
-                <div className="sm:col-span-4 flex items-end">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const el = document.getElementById('all-courses');
-                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }}
-                    className="w-full rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-white font-black text-xs uppercase tracking-wider py-3.5 px-3 sm:px-4 shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 group"
-                  >
-                    <Search className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="truncate">Find Courses ({allFilteredCourses.length})</span>
-                    <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                  </button>
+                {/* Popular degrees */}
+                <div className="mt-5 pt-4 border-t border-blue-100">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-blue-800 block mb-2">
+                    Popular Online Degrees:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {['Online MBA', 'Online BCA', 'Online BBA', 'Online MCA', 'Online M.Com', 'Online MA'].map((deg) => (
+                      <span key={deg} className="text-[11px] font-bold bg-white text-blue-900 border border-blue-200 px-2 py-0.5 rounded-md shadow-2xs">
+                        {deg}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* DUAL DISCOVERY CARDS */}
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-4xl text-left">
-            {/* CARD A: OFFLINE COURSES (PRIMARY FOCUS) */}
-            <div
-              onClick={() => handleSelectModeAndScroll('offline')}
-              className={`p-6 rounded-3xl border-2 transition-all cursor-pointer relative overflow-hidden group ${
-                globalMode === 'offline'
-                  ? 'bg-gradient-to-br from-emerald-50 via-white to-emerald-50/40 border-emerald-500 shadow-xl ring-2 ring-emerald-500/20'
-                  : 'bg-white border-slate-200 hover:border-emerald-300 hover:shadow-lg'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-3 whitespace-nowrap">
-                <span className="inline-flex items-center gap-1.5 bg-emerald-600 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-xs whitespace-nowrap">
-                  <Building2 className="w-3.5 h-3.5 shrink-0" />
-                  Primary Focus · Regular On-Campus
-                </span>
-                <span className="text-xs font-black text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-lg">
-                  {offlineCoursesCount} Programs
-                </span>
-              </div>
-
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
-                Regular Offline Degrees & Colleges
-              </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Full-time on-campus degree programs offering direct faculty interaction, high-tech laboratory sessions, campus placements, hostel accommodation, and extracurricular clubs.
-              </p>
-
-              <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> 100% Physical Campus Life</div>
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Hands-On Labs & Practicals</div>
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> On-Campus Placement Drives</div>
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Hostel & Sports Complex</div>
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs font-black text-emerald-700 uppercase tracking-wider group-hover:underline flex items-center gap-1">
-                  Explore Regular Campus Courses <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
-                <span className="text-[11px] font-bold text-slate-400">UG & PG</span>
-              </div>
-            </div>
-
-            {/* CARD B: ONLINE COURSES */}
-            <div
-              onClick={() => handleSelectModeAndScroll('online')}
-              className={`p-6 rounded-3xl border-2 transition-all cursor-pointer relative overflow-hidden group ${
-                globalMode === 'online'
-                  ? 'bg-gradient-to-br from-blue-50 via-white to-blue-50/40 border-blue-500 shadow-xl ring-2 ring-blue-500/20'
-                  : 'bg-white border-slate-200 hover:border-blue-300 hover:shadow-lg'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-3 whitespace-nowrap">
-                <span className="inline-flex items-center gap-1.5 bg-blue-600 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-xs whitespace-nowrap">
-                  <Laptop className="w-3.5 h-3.5 shrink-0" />
-                  Flexible Study · UGC-Approved
-                </span>
-                <span className="text-xs font-black text-blue-800 bg-blue-100 px-2.5 py-1 rounded-lg">
-                  {onlineCoursesCount} Programs
-                </span>
-              </div>
-
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-blue-700 transition-colors">
-                UGC-Approved Online Degrees
-              </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Accredited remote degree courses tailored for working professionals, remote learners, and budget-conscious students. Learn from top universities from the comfort of home.
-              </p>
-
-              <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" /> 100% Online LMS & Lectures</div>
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" /> Study at Your Own Schedule</div>
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" /> UGC-DEB Equivalent Degree</div>
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" /> Affordable Semester Fees</div>
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs font-black text-blue-700 uppercase tracking-wider group-hover:underline flex items-center gap-1">
-                  Explore Online Degree Programs <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
-                <span className="text-[11px] font-bold text-slate-400">UG & PG</span>
+              <div className="mt-6 pt-2">
+                <Link
+                  to="/online-degrees"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs sm:text-sm uppercase tracking-wider py-4 px-6 shadow-md hover:shadow-lg transition-all"
+                >
+                  <Laptop className="w-4 h-4" />
+                  <span>Open Online Degrees Portal ({onlineCoursesCount}+)</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </div>
           </div>
@@ -1007,139 +934,41 @@ export const StepWorldHomepage = () => {
         </div>
       </section>
 
-{/* NEW SECTION: OFFLINE VS ONLINE MODE COMPARISON (MAKES IT SUPER EASY FOR USERS TO UNDERSTAND) */}
-      <section id="mode-comparison" className="w-full bg-[#F0F7FF] py-16 sm:py-20 border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-10">
-            <span className="bg-blue-100 text-blue-800 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider inline-block mb-2">
-              Decision Guide for Students & Parents
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Offline vs Online Courses: Which Mode is Right for You?
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Compare regular campus programs with approved online degrees across key parameters so you make the best choice for your goals and budget.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-md">
-            <table className="w-full text-left text-xs sm:text-sm">
-              <thead>
-                <tr className="bg-slate-900 text-white">
-                  <th className="py-4 px-5 font-bold w-1/4">Key Factor</th>
-                  <th className="py-4 px-5 font-bold w-3/8 text-emerald-400">
-                    🏫 Offline Courses (On-Campus)
-                  </th>
-                  <th className="py-4 px-5 font-bold w-3/8 text-sky-400">
-                    💻 Approved Online Courses
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-200">
-                <tr className="hover:bg-slate-50/80">
-                  <td className="py-3.5 px-5 font-bold text-slate-900">Learning Mode</td>
-                  <td className="py-3.5 px-5 text-slate-700">Daily physical classroom lectures, practical labs & workshops</td>
-                  <td className="py-3.5 px-5 text-slate-700">Live virtual classes, recorded video modules & interactive LMS</td>
-                </tr>
-                <tr className="hover:bg-slate-50/80 bg-slate-50/40">
-                  <td className="py-3.5 px-5 font-bold text-slate-900">Campus & Hostel</td>
-                  <td className="py-3.5 px-5 text-slate-700">Full campus experience, hostel stay, sports & annual fests</td>
-                  <td className="py-3.5 px-5 text-slate-700">Study from home, zero hostel or relocation costs</td>
-                </tr>
-                <tr className="hover:bg-slate-50/80">
-                  <td className="py-3.5 px-5 font-bold text-slate-900">Schedule Flexibility</td>
-                  <td className="py-3.5 px-5 text-slate-700">Fixed timetable with mandatory 75% attendance</td>
-                  <td className="py-3.5 px-5 text-slate-700">100% flexible, study anytime after office hours or on weekends</td>
-                </tr>
-                <tr className="hover:bg-slate-50/80 bg-slate-50/40">
-                  <td className="py-3.5 px-5 font-bold text-slate-900">Placements & Network</td>
-                  <td className="py-3.5 px-5 text-slate-700">Direct on-campus recruitment drives & alumni meetups</td>
-                  <td className="py-3.5 px-5 text-slate-700">Virtual job fairs, placement assistance & corporate hiring portal</td>
-                </tr>
-                <tr className="hover:bg-slate-50/80">
-                  <td className="py-3.5 px-5 font-bold text-slate-900">Degree Recognition</td>
-                  <td className="py-3.5 px-5 text-slate-700">UGC, AICTE, NMC, BCI, PCI, COA accredited</td>
-                  <td className="py-3.5 px-5 text-slate-700">UGC-DEB approved, NAAC A+ accredited, equivalent degree value</td>
-                </tr>
-                <tr className="hover:bg-slate-50/80 bg-slate-50/40">
-                  <td className="py-3.5 px-5 font-bold text-slate-900">Best Suited For</td>
-                  <td className="py-3.5 px-5 text-slate-700">Fresh 12th passouts & graduates seeking immersive college life</td>
-                  <td className="py-3.5 px-5 text-slate-700">Working professionals, remote learners & budget-conscious students</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => handleSelectModeAndScroll('offline')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all text-xs uppercase tracking-wider whitespace-nowrap"
-            >
-              <Building2 className="w-4 h-4" />
-              <span>Explore Offline Campus Degrees ({offlineCoursesCount})</span>
-            </button>
-            <button
-              onClick={() => handleSelectModeAndScroll('online')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all text-xs uppercase tracking-wider whitespace-nowrap"
-            >
-              <Laptop className="w-4 h-4" />
-              <span>Explore Online Degrees ({onlineCoursesCount})</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-            {/* SECTION 2: ALL COURSES DIRECTORY */}
+      {/* SECTION 2: ALL COURSES DIRECTORY */}
       <section id="all-courses" className="w-full bg-[#F8FAFC] py-16 sm:py-20 border-b border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
               <div className="inline-flex items-center gap-2 bg-sky-50 border border-sky-200 text-sky-800 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-2">
                 <BookOpen className="h-4 w-4 text-sky-600" /> Programs Catalog
               </div>
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                All Available <span className="text-emerald-700">Offline & Online Courses</span>
+                Explore Programs by Portal
               </h2>
               <p className="mt-2 text-sm text-slate-600">
-                Explore accredited undergraduate & postgraduate programs across partnered universities.
+                Choose between regular offline campus degrees or flexible UGC-approved online degrees.
               </p>
             </div>
 
-            {/* Mode filter buttons */}
-            <div className="inline-flex rounded-2xl bg-white p-1.5 border border-slate-200 shadow-sm whitespace-nowrap">
-              <button
-                onClick={() => setGlobalMode('offline')}
-                className={`px-4 py-2 text-xs font-black rounded-xl transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
-                  globalMode === 'offline'
-                    ? 'bg-emerald-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
+            {/* Direct Portal Switcher Links */}
+            <div className="flex items-center gap-3 flex-wrap">
+              <Link
+                to="/offline-courses"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase tracking-wider shadow-sm transition-all"
               >
-                <Building2 className="w-3.5 h-3.5 shrink-0" />
-                <span>Offline ({offlineCoursesCount})</span>
-              </button>
-              <button
-                onClick={() => setGlobalMode('online')}
-                className={`px-4 py-2 text-xs font-black rounded-xl transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
-                  globalMode === 'online'
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
+                <Building2 className="w-4 h-4" />
+                <span>Regular Campus Portal ({offlineCoursesCount}+)</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <Link
+                to="/online-degrees"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-sm transition-all"
               >
-                <Laptop className="w-3.5 h-3.5 shrink-0" />
-                <span>Online ({onlineCoursesCount})</span>
-              </button>
-              <button
-                onClick={() => setGlobalMode('all')}
-                className={`px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-                  globalMode === 'all'
-                    ? 'bg-slate-900 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                All ({courses.length})
-              </button>
+                <Laptop className="w-4 h-4" />
+                <span>Online Degrees Portal ({onlineCoursesCount}+)</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
 
@@ -1610,11 +1439,16 @@ export const StepWorldHomepage = () => {
                 </div>
 
                 <div className="flex items-center gap-3.5 rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                  <Phone className="h-5 w-5 text-emerald-600 shrink-0" />
+                  <MapPin className="h-5 w-5 text-rose-600 shrink-0" />
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">Toll-Free Helpline</h4>
-                    <a href="tel:18004200000" className="text-sm font-extrabold text-emerald-700 hover:underline">
-                      1800-420-0000
+                    <h4 className="text-sm font-bold text-slate-900">Registered Office</h4>
+                    <a
+                      href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs text-slate-600 hover:text-emerald-700 font-medium"
+                    >
+                      B-31, Sector 2, Noida, UP (Open in Maps)
                     </a>
                   </div>
                 </div>
@@ -1946,14 +1780,16 @@ export const StepWorldHomepage = () => {
           className="flex-1 rounded-xl bg-emerald-600 text-white text-xs font-black py-2.5 px-3 flex items-center justify-center gap-1.5 shadow-xs"
         >
           <MessageCircle className="w-4 h-4 fill-current" />
-          <span>WhatsApp: 99102 45535</span>
+          <span>Chat on WhatsApp</span>
         </a>
         <a
-          href="tel:18004200000"
+          href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex-1 rounded-xl bg-slate-900 text-white text-xs font-black py-2.5 px-3 flex items-center justify-center gap-1.5 shadow-xs"
         >
-          <Phone className="w-3.5 h-3.5 text-emerald-400" />
-          <span>1800-420-0000</span>
+          <MapPin className="w-3.5 h-3.5 text-rose-400" />
+          <span>Office Location</span>
         </a>
       </div>
     </div>

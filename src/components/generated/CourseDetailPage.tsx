@@ -307,7 +307,14 @@ const Hero = ({ course, college, onApply }: { course: ApiCourse; college: ApiCol
           </button>
 
           <div className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 text-xs font-semibold text-slate-600">
-            <span className="inline-flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-blue-600" /> 1800-420-5757</span>
+            <a
+              href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-emerald-700 hover:text-emerald-800 font-bold"
+            >
+              <MessageCircle className="h-3.5 w-3.5 text-emerald-600" /> WhatsApp Chat
+            </a>
             <span className="inline-flex items-center gap-1.5"><Mail className="h-3.5 w-3.5 text-blue-600" /> info@stepworld.com</span>
           </div>
         </aside>
@@ -586,57 +593,7 @@ const CareerSection = ({ course }: { course: ApiCourse }) => {
   );
 };
 
-const EMICalculator = ({ totalFeeLabel }: { totalFeeLabel: string }) => {
-  const total = parseInt(totalFeeLabel.replace(/[^\d]/g, '') || '160000', 10);
-  const [amount, setAmount] = useState(total);
-  const [months, setMonths] = useState(24);
-  const [rate, setRate] = useState(12);
-  const monthlyRate = rate / 12 / 100;
-  const emi = amount > 0 && months > 0
-    ? Math.round((amount * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1))
-    : 0;
-  const totalPayable = emi * months;
-  const interest = totalPayable - amount;
-  return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-2xl font-extrabold text-slate-900">EMI Calculator</h2>
-      <p className="mt-1 text-sm text-slate-600">Plan your monthly payments.</p>
-      <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_280px]">
-        <div className="space-y-4">
-          <label className="block">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Loan Amount</span>
-              <span className="text-sm font-black text-slate-900">₹{amount.toLocaleString('en-IN')}</span>
-            </div>
-            <input type="range" min={50000} max={total} value={amount} onChange={(e) => setAmount(Number(e.target.value))} className="mt-2 w-full" />
-          </label>
-          <label className="block">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Tenure</span>
-              <span className="text-sm font-black text-slate-900">{months} months</span>
-            </div>
-            <input type="range" min={6} max={60} step={6} value={months} onChange={(e) => setMonths(Number(e.target.value))} className="mt-2 w-full" />
-          </label>
-          <label className="block">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wide text-slate-600">Interest Rate</span>
-              <span className="text-sm font-black text-slate-900">{rate}% p.a.</span>
-            </div>
-            <input type="range" min={5} max={20} step={0.5} value={rate} onChange={(e) => setRate(Number(e.target.value))} className="mt-2 w-full" />
-          </label>
-        </div>
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <p className="text-xs font-bold uppercase tracking-wide text-blue-700">Monthly EMI</p>
-          <p className="mt-1 text-3xl font-black text-blue-900">₹{emi.toLocaleString('en-IN')}</p>
-          <div className="mt-4 space-y-1 text-xs text-blue-800">
-            <div className="flex justify-between"><span>Total Payable</span><span className="font-bold">₹{totalPayable.toLocaleString('en-IN')}</span></div>
-            <div className="flex justify-between"><span>Total Interest</span><span className="font-bold">₹{interest.toLocaleString('en-IN')}</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+
 
 const CourseReviewsSection = ({ course }: { course: ApiCourse }) => {
   if (!course.reviews || course.reviews.length === 0) return null;

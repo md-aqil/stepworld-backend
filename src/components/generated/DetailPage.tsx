@@ -377,7 +377,14 @@ const Hero = ({ college, onApply }: { college: ApiCollege; onApply: () => void }
           </button>
 
           <div className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 text-xs font-semibold text-slate-600">
-            <span className="inline-flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-blue-600" /> 1800-420-5757</span>
+            <a
+              href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-emerald-700 hover:text-emerald-800 font-bold"
+            >
+              <MessageCircle className="h-3.5 w-3.5 text-emerald-600" /> WhatsApp Chat
+            </a>
             <span className="inline-flex items-center gap-1.5"><Mail className="h-3.5 w-3.5 text-blue-600" /> info@stepworld.com</span>
           </div>
         </aside>
@@ -941,8 +948,16 @@ const Footer = () => (
             <p className="text-sm font-medium text-slate-400">Contact us:</p>
             <p className="font-medium hover:text-white cursor-pointer transition-colors">info@stepworld.com</p>
             <div className="inline-flex flex-col space-y-1">
-              <span className="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full w-max font-bold">Toll Free</span>
-              <p className="font-bold text-lg text-white border border-slate-700 rounded-lg px-4 py-2">1800-420-0000</p>
+              <span className="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded-full w-max font-bold">WhatsApp Support</span>
+              <a
+                href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+                target="_blank"
+                rel="noreferrer"
+                className="font-bold text-base text-emerald-400 hover:text-emerald-300 border border-slate-700 hover:border-emerald-500 rounded-lg px-4 py-2 flex items-center gap-2 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>+91 99102 45535</span>
+              </a>
             </div>
             {/* SOCIAL MEDIA */}
             <div className="pt-3">

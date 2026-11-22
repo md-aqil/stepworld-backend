@@ -331,11 +331,13 @@ export const BlogPostPage: React.FC = () => {
                     Talk to our senior management counsellors directly.
                   </p>
                   <a
-                    href="tel:18004200000"
-                    className="inline-flex items-center justify-center gap-1.5 bg-white text-blue-900 font-bold px-3 py-1.5 rounded-lg text-xs w-full shadow-xs hover:bg-blue-50 transition-colors"
+                    href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20MBA%20counselling"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 bg-white text-emerald-800 font-bold px-3 py-1.5 rounded-lg text-xs w-full shadow-xs hover:bg-emerald-50 transition-colors"
                   >
-                    <Phone className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Call 1800-420-0000</span>
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>WhatsApp Counselling</span>
                   </a>
                 </div>
               </div>
@@ -1202,11 +1204,13 @@ export const BlogPostPage: React.FC = () => {
 
                   <div className="flex flex-wrap items-center gap-4 text-xs font-semibold">
                     <a
-                      href="tel:18004200000"
-                      className="bg-amber-400 hover:bg-amber-500 text-slate-950 px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-md"
+                      href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="bg-[#25D366] hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-md font-bold"
                     >
-                      <Phone className="w-4 h-4 text-slate-950" />
-                      <span>Call: 1800-420-0000 (Toll Free)</span>
+                      <MessageCircle className="w-4 h-4 fill-current text-white" />
+                      <span>WhatsApp: 99102 45535</span>
                     </a>
                     <a
                       href="https://maps.app.goo.gl/ZQknF8MaBnbiPCnw5"
@@ -1389,11 +1393,13 @@ export const BlogPostPage: React.FC = () => {
                 </a>
                 <span>•</span>
                 <a
-                  href="tel:18004200000"
-                  className="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 font-semibold"
+                  href="https://wa.me/919910245535?text=Hi%20StepWorld,%20I%20would%20like%20to%20get%20free%20admission%20counselling"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-800 font-semibold"
                 >
-                  <Phone className="w-4 h-4 text-blue-600" />
-                  <span>1800-420-0000</span>
+                  <MessageCircle className="w-4 h-4 text-emerald-600" />
+                  <span>WhatsApp 99102 45535</span>
                 </a>
               </div>
 
