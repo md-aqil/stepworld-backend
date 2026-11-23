@@ -22,7 +22,7 @@ services:
     container_name: stepworld-app
     restart: unless-stopped
     ports:
-      - "127.0.0.1:4300:4000"
+      - "4300:4000"
     environment:
       NODE_ENV: production
       PORT: 4000
