@@ -21,6 +21,18 @@ import {
   Facebook,
   BookOpen,
   Briefcase,
+  Wrench,
+  TrendingUp,
+  Calculator,
+  FlaskConical,
+  Scale,
+  Stethoscope,
+  Palette,
+  Coffee,
+  Sprout,
+  Film,
+  Layers,
+  HelpCircle,
 } from 'lucide-react';
 
 const GRADIENT_TEXT = 'bg-gradient-to-r from-emerald-600 via-teal-600 to-blue-600 bg-clip-text text-transparent';
@@ -36,15 +48,198 @@ const StepWorldLogo = ({ height = 56 }: { height?: number }) => (
   </div>
 );
 
-const OFFLINE_STREAMS = [
-  { id: 'all', name: 'All Disciplines' },
-  { id: 'engineering', name: 'Engineering & Technology (B.Tech / M.Tech)' },
-  { id: 'management', name: 'Management & Business (BBA / MBA)' },
-  { id: 'medical', name: 'Medical & Healthcare (MBBS / Nursing / Pharma)' },
-  { id: 'law', name: 'Law & Legal Studies (LL.B / BA-LL.B)' },
-  { id: 'commerce', name: 'Commerce & Banking (B.Com / Finance)' },
-  { id: 'design', name: 'Design & Architecture (B.Des / B.Arch)' },
-  { id: 'science', name: 'Applied Sciences (B.Sc / M.Sc)' },
+export const OFFLINE_STREAMS = [
+  { id: 'all', name: 'All 13 Disciplines' },
+  { id: 'engineering', name: 'Engineering & Technology (B.Tech / B.E. / M.Tech / M.E.)' },
+  { id: 'computer-it', name: 'Computer & IT (BCA / B.Sc. CS / MCA / M.Sc. IT)' },
+  { id: 'management', name: 'Management & Business (BBA / BBM / BMS / MBA / PGDM / MMS)' },
+  { id: 'commerce', name: 'Commerce & Finance (B.Com / B.Com Hons / M.Com)' },
+  { id: 'science', name: 'Science (B.Sc. / B.Sc. Hons / M.Sc. / M.Sc. Hons)' },
+  { id: 'arts', name: 'Arts & Humanities (B.A. / B.A. Hons / M.A. / M.A. Hons)' },
+  { id: 'law', name: 'Law (LL.B / BA-LL.B / BBA-LL.B / B.Com-LL.B / LL.M)' },
+  { id: 'medical', name: 'Medical & Healthcare (MBBS / BDS / BAMS / BHMS / BUMS / BSMS / Nursing / BPT / B.Pharm / MLT / MD / MS)' },
+  { id: 'design', name: 'Design & Architecture (B.Des / B.Arch / BFA / M.Des / M.Arch / MFA)' },
+  { id: 'hotel', name: 'Hotel Management & Hospitality (BHM / B.Sc. Hospitality / MHM / M.Sc. Hospitality)' },
+  { id: 'agriculture', name: 'Agriculture (B.Sc. Agriculture / B.Tech Agri Eng / M.Sc. Agri / M.Tech Agri)' },
+  { id: 'education', name: 'Education (B.Ed / B.El.Ed / D.El.Ed / M.Ed)' },
+  { id: 'media', name: 'Mass Communication & Journalism (BJMC / B.A. Journalism / MJMC / M.A. Journalism)' },
+];
+
+export const STEPWORLD_OFFLINE_GUIDE_CATEGORIES = [
+  {
+    id: 'engineering',
+    name: 'Engineering & Technology',
+    icon: Wrench,
+    accentColor: 'text-amber-700',
+    bgLight: 'bg-amber-50',
+    borderColor: 'border-amber-200',
+    ugCourses: ['B.Tech', 'B.E.'],
+    pgCourses: ['M.Tech', 'M.E.'],
+    description: 'Technical, computing, automation, mechanical, electrical, and civil core engineering programs.',
+  },
+  {
+    id: 'computer-it',
+    name: 'Computer & IT',
+    icon: Laptop,
+    accentColor: 'text-indigo-700',
+    bgLight: 'bg-indigo-50',
+    borderColor: 'border-indigo-200',
+    ugCourses: ['BCA', 'B.Sc. Computer Science', 'B.Sc. IT'],
+    pgCourses: ['MCA', 'M.Sc. Computer Science', 'M.Sc. IT'],
+    description: 'Software development, programming, algorithms, cybersecurity, cloud architecture, and data systems.',
+  },
+  {
+    id: 'management',
+    name: 'Management & Business',
+    icon: TrendingUp,
+    accentColor: 'text-emerald-700',
+    bgLight: 'bg-emerald-50',
+    borderColor: 'border-emerald-200',
+    ugCourses: ['BBA', 'BBM', 'BMS'],
+    pgCourses: ['MBA', 'PGDM', 'MMS'],
+    description: 'Corporate management, business leadership, operations, marketing, human resources, and entrepreneurship.',
+  },
+  {
+    id: 'commerce',
+    name: 'Commerce & Finance',
+    icon: Calculator,
+    accentColor: 'text-teal-700',
+    bgLight: 'bg-teal-50',
+    borderColor: 'border-teal-200',
+    ugCourses: ['B.Com', 'B.Com (Hons.)'],
+    pgCourses: ['M.Com', 'Finance-related PG programmes'],
+    description: 'Corporate accounting, auditing, taxation, banking, financial analytics, and wealth advisory.',
+  },
+  {
+    id: 'science',
+    name: 'Science',
+    icon: FlaskConical,
+    accentColor: 'text-sky-700',
+    bgLight: 'bg-sky-50',
+    borderColor: 'border-sky-200',
+    ugCourses: ['B.Sc.', 'B.Sc. (Hons.)'],
+    pgCourses: ['M.Sc.', 'M.Sc. (Hons.)'],
+    description: 'Fundamental and applied sciences: physics, chemistry, mathematics, biological sciences, and research laboratory sciences.',
+  },
+  {
+    id: 'arts',
+    name: 'Arts & Humanities',
+    icon: BookOpen,
+    accentColor: 'text-cyan-700',
+    bgLight: 'bg-cyan-50',
+    borderColor: 'border-cyan-200',
+    ugCourses: ['B.A.', 'B.A. (Hons.)'],
+    pgCourses: ['M.A.', 'M.A. (Hons.)'],
+    description: 'Liberal arts, psychology, literature, history, political science, sociology, and public policy.',
+  },
+  {
+    id: 'law',
+    name: 'Law',
+    icon: Scale,
+    accentColor: 'text-amber-800',
+    bgLight: 'bg-amber-50',
+    borderColor: 'border-amber-200',
+    ugCourses: ['LL.B', 'BA-LL.B', 'BBA-LL.B', 'B.Com-LL.B'],
+    pgCourses: ['LL.M'],
+    description: 'Bar Council of India approved legal education: civil, criminal, corporate, intellectual property, and constitutional law.',
+  },
+  {
+    id: 'medical',
+    name: 'Medical & Healthcare',
+    icon: Stethoscope,
+    accentColor: 'text-rose-700',
+    bgLight: 'bg-rose-50',
+    borderColor: 'border-rose-200',
+    ugCourses: [
+      'MBBS',
+      'BDS',
+      'BAMS',
+      'BHMS',
+      'BUMS',
+      'BSMS',
+      'B.Sc Nursing',
+      'BPT',
+      'B.Pharm',
+      'BOT',
+      'B.Sc Medical Laboratory Technology (MLT)',
+      'B.Sc Radiology / Medical Imaging',
+      'B.Sc Operation Theatre Technology',
+      'B.Sc Optometry',
+      'B.Sc Anesthesia Technology',
+      'B.Sc Cardiac Care Technology',
+    ],
+    pgCourses: [
+      'MD',
+      'MS',
+      'MDS',
+      'MD/MS Ayurveda',
+      'MD/MS Homeopathy',
+      'M.Pharm',
+      'M.Sc Nursing',
+      'MPT',
+      'M.Sc Medical Laboratory Technology',
+      'M.Sc Radiology / Medical Imaging',
+      'M.Sc Clinical Psychology',
+      'MPH',
+      'MBA/MHA in Hospital & Healthcare Management',
+    ],
+    description: 'NMC & allied health sciences: clinical medicine, dental, AYUSH, nursing, pharmacy, and super-specialty hospital management.',
+  },
+  {
+    id: 'design',
+    name: 'Design & Architecture',
+    icon: Palette,
+    accentColor: 'text-fuchsia-700',
+    bgLight: 'bg-fuchsia-50',
+    borderColor: 'border-fuchsia-200',
+    ugCourses: ['B.Des', 'B.Arch', 'BFA'],
+    pgCourses: ['M.Des', 'M.Arch', 'MFA'],
+    description: 'COA-approved architecture, industrial design, interior, fashion, fine arts, and digital visual communications.',
+  },
+  {
+    id: 'hotel',
+    name: 'Hotel Management & Hospitality',
+    icon: Coffee,
+    accentColor: 'text-orange-700',
+    bgLight: 'bg-orange-50',
+    borderColor: 'border-orange-200',
+    ugCourses: ['BHM', 'B.Sc. Hospitality / Hotel Management'],
+    pgCourses: ['MHM', 'M.Sc. Hospitality / Hotel Management'],
+    description: 'International hospitality operations, luxury hotel administration, culinary arts, and event tourism management.',
+  },
+  {
+    id: 'agriculture',
+    name: 'Agriculture',
+    icon: Sprout,
+    accentColor: 'text-green-700',
+    bgLight: 'bg-green-50',
+    borderColor: 'border-green-200',
+    ugCourses: ['B.Sc. Agriculture', 'B.Tech Agricultural Engineering'],
+    pgCourses: ['M.Sc. Agriculture', 'M.Tech Agricultural Engineering'],
+    description: 'ICAR-aligned agronomy, soil science, farm machinery, agricultural biotechnology, and agribusiness economics.',
+  },
+  {
+    id: 'education',
+    name: 'Education',
+    icon: GraduationCap,
+    accentColor: 'text-blue-800',
+    bgLight: 'bg-blue-50',
+    borderColor: 'border-blue-200',
+    ugCourses: ['B.Ed', 'B.El.Ed', 'D.El.Ed'],
+    pgCourses: ['M.Ed'],
+    description: 'NCTE-recognized teacher training, elementary education pedagogy, institutional curriculum, and educational leadership.',
+  },
+  {
+    id: 'media',
+    name: 'Mass Communication & Journalism',
+    icon: Film,
+    accentColor: 'text-purple-700',
+    bgLight: 'bg-purple-50',
+    borderColor: 'border-purple-200',
+    ugCourses: ['BJMC', 'B.A. Journalism & Mass Communication'],
+    pgCourses: ['MJMC', 'M.A. Journalism & Mass Communication'],
+    description: 'Broadcast television, print reporting, digital investigative journalism, public relations, and advertising media.',
+  },
 ];
 
 export const OfflinePortalPage: React.FC = () => {
@@ -65,20 +260,41 @@ export const OfflinePortalPage: React.FC = () => {
       if (streamFilter !== 'all') {
         const str = (crs.stream ?? '').toLowerCase();
         const title = crs.title.toLowerCase();
-        if (streamFilter === 'engineering' && !str.includes('engineer') && !title.includes('b.tech') && !title.includes('m.tech')) return false;
-        if (streamFilter === 'management' && !str.includes('manage') && !title.includes('bba') && !title.includes('mba')) return false;
-        if (streamFilter === 'medical' && !str.includes('health') && !title.includes('mbbs') && !title.includes('pharm') && !title.includes('nurs')) return false;
-        if (streamFilter === 'law' && !str.includes('law') && !title.includes('ll.b') && !title.includes('legal')) return false;
-        if (streamFilter === 'commerce' && !str.includes('commerce') && !title.includes('b.com')) return false;
-        if (streamFilter === 'design' && !str.includes('design') && !title.includes('b.des') && !title.includes('arch')) return false;
-        if (streamFilter === 'science' && !str.includes('science') && !title.includes('b.sc')) return false;
+        if (streamFilter === 'engineering') {
+          if (!str.includes('engineer') && !title.includes('b.tech') && !title.includes('b.e.') && !title.includes('m.tech') && !title.includes('m.e.')) return false;
+        } else if (streamFilter === 'computer-it') {
+          if (!str.includes('computer') && !str.includes('it') && !title.includes('bca') && !title.includes('mca') && !title.includes('computer science')) return false;
+        } else if (streamFilter === 'management') {
+          if (!str.includes('manage') && !str.includes('business') && !title.includes('bba') && !title.includes('bbm') && !title.includes('bms') && !title.includes('mba') && !title.includes('pgdm') && !title.includes('mms')) return false;
+        } else if (streamFilter === 'commerce') {
+          if (!str.includes('commerce') && !str.includes('finance') && !title.includes('b.com') && !title.includes('m.com')) return false;
+        } else if (streamFilter === 'science') {
+          if (!str.includes('science') && !title.includes('b.sc') && !title.includes('m.sc')) return false;
+        } else if (streamFilter === 'arts') {
+          if (!str.includes('arts') && !str.includes('humanities') && !title.includes('b.a.') && !title.includes('m.a.')) return false;
+        } else if (streamFilter === 'law') {
+          if (!str.includes('law') && !str.includes('legal') && !title.includes('ll.b') && !title.includes('ll.m')) return false;
+        } else if (streamFilter === 'medical') {
+          if (!str.includes('medic') && !str.includes('health') && !title.includes('mbbs') && !title.includes('bds') && !title.includes('bams') && !title.includes('bhms') && !title.includes('bums') && !title.includes('bsms') && !title.includes('nurs') && !title.includes('pharm') && !title.includes('bpt') && !title.includes('bot') && !title.includes('mlt') && !title.includes('radiology') && !title.includes('theatre') && !title.includes('optometry') && !title.includes('anesthesia') && !title.includes('cardiac') && !title.includes('md') && !title.includes('ms ') && !title.includes('mds') && !title.includes('mpt') && !title.includes('mph') && !title.includes('mha')) return false;
+        } else if (streamFilter === 'design') {
+          if (!str.includes('design') && !str.includes('arch') && !title.includes('b.des') && !title.includes('b.arch') && !title.includes('bfa') && !title.includes('m.des') && !title.includes('m.arch') && !title.includes('mfa')) return false;
+        } else if (streamFilter === 'hotel') {
+          if (!str.includes('hotel') && !str.includes('hospitality') && !title.includes('bhm') && !title.includes('mhm')) return false;
+        } else if (streamFilter === 'agriculture') {
+          if (!str.includes('agri') && !title.includes('agriculture')) return false;
+        } else if (streamFilter === 'education') {
+          if (!str.includes('education') && !title.includes('b.ed') && !title.includes('b.el.ed') && !title.includes('d.el.ed') && !title.includes('m.ed')) return false;
+        } else if (streamFilter === 'media') {
+          if (!str.includes('journalism') && !str.includes('mass') && !title.includes('bjmc') && !title.includes('mjmc')) return false;
+        }
       }
       if (search.trim()) {
         const q = search.toLowerCase().trim();
         const matchTitle = crs.title.toLowerCase().includes(q);
         const matchCollege = (crs.college?.name ?? '').toLowerCase().includes(q);
         const matchSpec = (crs.specializations ?? '').toLowerCase().includes(q);
-        if (!matchTitle && !matchCollege && !matchSpec) return false;
+        const matchStream = (crs.stream ?? '').toLowerCase().includes(q);
+        if (!matchTitle && !matchCollege && !matchSpec && !matchStream) return false;
       }
       return true;
     });
@@ -87,6 +303,13 @@ export const OfflinePortalPage: React.FC = () => {
   const handleApplyWhatsApp = (courseTitle: string, collegeName: string) => {
     const text = encodeURIComponent(
       `Hi StepWorld! I want to get Free Admission Counselling & Apply for ${courseTitle} at ${collegeName} (Regular Campus). Please guide me with seat cutoffs and direct university fees.`
+    );
+    window.open(`https://wa.me/919910245535?text=${text}`, '_blank');
+  };
+
+  const handleGuideCategoryWhatsApp = (categoryName: string, sampleCourses: string) => {
+    const text = encodeURIComponent(
+      `Hi StepWorld! I am looking for admission counselling for ${categoryName} (${sampleCourses}). Please help me choose the best regular on-campus college and guide me with admission cutoffs & fees.`
     );
     window.open(`https://wa.me/919910245535?text=${text}`, '_blank');
   };
@@ -134,17 +357,16 @@ export const OfflinePortalPage: React.FC = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-5 text-xs xl:text-sm font-bold text-slate-700">
+            <div className="hidden lg:flex items-center space-x-4 xl:space-x-5 text-xs xl:text-sm font-bold text-slate-700">
               <Link to="/" className="hover:text-emerald-600 transition-colors">
                 Home
               </Link>
-              <Link
-                to="/offline-courses"
-                className="text-emerald-700 bg-emerald-50 px-3.5 py-1.5 rounded-xl border border-emerald-200 font-black flex items-center gap-1.5"
-              >
-                <Building2 className="w-4 h-4 text-emerald-600" />
-                <span>Regular Campus</span>
-              </Link>
+              <a href="#ug-pg-categories" className="hover:text-emerald-600 transition-colors">
+                Course Categories Guide
+              </a>
+              <a href="#all-campus-courses" className="hover:text-emerald-600 transition-colors">
+                All Campus Courses
+              </a>
               <Link
                 to="/online-degrees"
                 className="text-blue-700 hover:text-blue-800 transition-colors flex items-center gap-1.5"
@@ -197,13 +419,20 @@ export const OfflinePortalPage: React.FC = () => {
             >
               🏠 Home
             </Link>
-            <Link
-              to="/offline-courses"
+            <a
+              href="#ug-pg-categories"
               onClick={() => setIsNavOpen(false)}
-              className="block px-3 py-2 text-sm font-black text-emerald-800 bg-emerald-50 rounded-lg border border-emerald-200"
+              className="block px-3 py-2 text-sm font-bold text-slate-800"
             >
-              🏛️ Regular Campus Degrees
-            </Link>
+              📚 Course Categories Guide (UG & PG)
+            </a>
+            <a
+              href="#all-campus-courses"
+              onClick={() => setIsNavOpen(false)}
+              className="block px-3 py-2 text-sm font-bold text-slate-800"
+            >
+              🎓 All Campus Courses ({campusCourses.length})
+            </a>
             <Link
               to="/online-degrees"
               onClick={() => setIsNavOpen(false)}
@@ -417,8 +646,142 @@ export const OfflinePortalPage: React.FC = () => {
         </div>
       </section>
 
+      {/* STEPWORLD EDUCATION UG & PG COURSE CATEGORIES – COMPREHENSIVE GUIDE */}
+      <section id="ug-pg-categories" className="bg-slate-50 py-16 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3.5 py-1 rounded-full mb-3 shadow-xs">
+              <BookOpen className="w-4 h-4 text-emerald-700" />
+              <span>Official Student Counselling Reference</span>
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              StepWorld Education UG & PG Course Categories
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+              This guide provides major undergraduate (UG) and postgraduate (PG) course categories for student counselling and college/course selection across India.
+            </p>
+          </div>
+
+          {/* 13 CATEGORIES GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {STEPWORLD_OFFLINE_GUIDE_CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <div
+                  key={cat.id}
+                  className={`bg-white rounded-3xl border ${cat.borderColor} p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group`}
+                >
+                  <div>
+                    {/* Header */}
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${cat.bgLight} ${cat.accentColor} shrink-0 group-hover:scale-105 transition-transform`}>
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
+                        UG & PG Degrees
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">
+                      {cat.description}
+                    </p>
+
+                    {/* UG Courses List */}
+                    <div className="mb-4 bg-slate-50/80 rounded-2xl p-3.5 border border-slate-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-700 flex items-center gap-1.5">
+                          <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>UG Courses ({cat.ugCourses.length})</span>
+                        </span>
+                        <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
+                          Undergraduate
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {cat.ugCourses.map((crs) => (
+                          <span
+                            key={crs}
+                            className="text-[11px] font-bold bg-white text-slate-800 border border-slate-200 px-2 py-0.5 rounded-lg shadow-2xs"
+                          >
+                            • {crs}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* PG Courses List */}
+                    <div className="bg-slate-50/80 rounded-2xl p-3.5 border border-slate-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-700 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-blue-600" />
+                          <span>PG Courses ({cat.pgCourses.length})</span>
+                        </span>
+                        <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md">
+                          Postgraduate
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {cat.pgCourses.map((crs) => (
+                          <span
+                            key={crs}
+                            className="text-[11px] font-bold bg-white text-slate-800 border border-slate-200 px-2 py-0.5 rounded-lg shadow-2xs"
+                          >
+                            • {crs}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStreamFilter(cat.id);
+                        const el = document.getElementById('all-campus-courses');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="text-xs font-black text-slate-700 hover:text-emerald-700 flex items-center gap-1 cursor-pointer transition-colors"
+                    >
+                      <span>Filter Catalog</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleGuideCategoryWhatsApp(cat.name, cat.ugCourses.concat(cat.pgCourses).slice(0, 4).join(', '))}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 text-xs font-bold transition-all shadow-xs cursor-pointer"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                      <span>WhatsApp Enquire</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* OFFICIAL REGULATORY DISCLAIMER NOTE */}
+          <div className="mt-10 bg-amber-50/80 border border-amber-200/90 rounded-2xl p-5 text-xs text-amber-900 leading-relaxed shadow-xs flex items-start gap-3">
+            <HelpCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-amber-950 mb-0.5">
+                Note on Course Names & Availability:
+              </p>
+              <p className="text-amber-800">
+                Course names and availability can vary by university, college, regulatory body and state. Students should verify current eligibility, entrance requirements and recognition before admission. Contact StepWorld Education for direct college-specific verification.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Campus Courses Directory */}
-      <section className="bg-white py-16 border-t border-slate-200">
+      <section id="all-campus-courses" className="bg-white py-16 border-t border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-8">
             <div>
@@ -434,54 +797,67 @@ export const OfflinePortalPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {campusCourses.map((crs) => (
-              <div
-                key={crs.id}
-                className="rounded-2xl border border-slate-200 bg-slate-50/50 p-5 flex flex-col justify-between hover:bg-white hover:border-emerald-300 hover:shadow-md transition-all"
+          {campusCourses.length === 0 ? (
+            <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-12 text-center text-slate-600">
+              <p className="text-sm font-bold">No regular courses matched your filter criteria.</p>
+              <button
+                type="button"
+                onClick={() => { setSearch(''); setStreamFilter('all'); setLevelFilter('all'); }}
+                className="mt-3 inline-flex items-center gap-1.5 text-xs font-black text-emerald-700 underline cursor-pointer"
               >
-                <div>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-black uppercase text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
-                      {crs.stream}
-                    </span>
-                    <span className="text-xs font-black text-slate-900">{crs.fee}</span>
+                Reset filters & show all programs
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {campusCourses.map((crs) => (
+                <div
+                  key={crs.id}
+                  className="rounded-2xl border border-slate-200 bg-slate-50/50 p-5 flex flex-col justify-between hover:bg-white hover:border-emerald-300 hover:shadow-md transition-all"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <span className="text-[10px] font-black uppercase text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+                        {crs.stream}
+                      </span>
+                      <span className="text-xs font-black text-slate-900">{crs.fee}</span>
+                    </div>
+
+                    <h3 className="text-base font-extrabold text-slate-900">
+                      <Link
+                        to={crs.college ? `/university/${crs.college.slug}/${crs.slug}` : `/university/christ-university-bengaluru/${crs.slug}`}
+                        className="hover:text-emerald-700 transition-colors"
+                      >
+                        {crs.title}
+                      </Link>
+                    </h3>
+                    <p className="text-xs font-bold text-slate-500 mt-0.5">
+                      {crs.college?.name ?? 'Christ University Bengaluru'} • {crs.duration}
+                    </p>
+                    <p className="text-xs text-slate-600 mt-2 line-clamp-2">
+                      {crs.description ?? 'Full-time campus curriculum with laboratory experiments and direct placement drives.'}
+                    </p>
                   </div>
 
-                  <h3 className="text-base font-extrabold text-slate-900">
+                  <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between gap-2">
                     <Link
                       to={crs.college ? `/university/${crs.college.slug}/${crs.slug}` : `/university/christ-university-bengaluru/${crs.slug}`}
-                      className="hover:text-emerald-700 transition-colors"
+                      className="text-xs font-bold text-slate-700 hover:text-emerald-700 transition-colors"
                     >
-                      {crs.title}
+                      View Details &rarr;
                     </Link>
-                  </h3>
-                  <p className="text-xs font-bold text-slate-500 mt-0.5">
-                    {crs.college?.name ?? 'Christ University Bengaluru'} • {crs.duration}
-                  </p>
-                  <p className="text-xs text-slate-600 mt-2 line-clamp-2">
-                    {crs.description ?? 'Full-time campus curriculum with laboratory experiments and direct placement drives.'}
-                  </p>
+                    <button
+                      onClick={() => handleApplyWhatsApp(crs.title, crs.college?.name ?? 'Christ University')}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer shadow-xs"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                      <span>Apply Now</span>
+                    </button>
+                  </div>
                 </div>
-
-                <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between gap-2">
-                  <Link
-                    to={crs.college ? `/university/${crs.college.slug}/${crs.slug}` : `/university/christ-university-bengaluru/${crs.slug}`}
-                    className="text-xs font-bold text-slate-700 hover:text-emerald-700 transition-colors"
-                  >
-                    View Syllabus & Cutoffs &rarr;
-                  </Link>
-                  <button
-                    onClick={() => handleApplyWhatsApp(crs.title, crs.college?.name ?? 'Christ University')}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer"
-                  >
-                    <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                    <span>Apply Now</span>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
