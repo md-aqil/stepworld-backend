@@ -1,0 +1,12 @@
+# Direct IP access on port 80 (works before DNS propagation)
+:80 {
+    reverse_proxy app:4000
+}
+
+# Production Domains with Automatic Let's Encrypt HTTPS / SSL
+stepworldeducation.com, www.stepworldeducation.com,
+stepworldeducation.in, www.stepworldeducation.in,
+stepworldeducation.org, www.stepworldeducation.org,
+stepworldeducation.online, www.stepworldeducation.online {
+    reverse_proxy app:4000
+}

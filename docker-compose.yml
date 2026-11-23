@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: stepworld-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: stepworld
+      POSTGRES_PASSWORD: stepworld_db_secret_pass_2026
+      POSTGRES_DB: stepworld_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stepworld -d stepworld_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stepworld-net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stepworld-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://stepworld:stepworld_db_secret_pass_2026@db:5432/stepworld_db?schema=public
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - stepworld-net
+
+  proxy:
+    image: caddy:2-alpine
+    container_name: stepworld-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - stepworld-net
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:
+
+networks:
+  stepworld-net:
+    driver: bridge
