@@ -957,7 +957,7 @@ export const OfflinePortalPage: React.FC = () => {
                   <Facebook className="w-5 h-5" />
                 </a>
               </div>
-              <p className="text-slate-400">Office: Noida / Delhi NCR</p>
+              <p className="text-slate-400">Office: G-8, Ground Floor, Sector 3, Noida, UP</p>
             </div>
           </div>
 

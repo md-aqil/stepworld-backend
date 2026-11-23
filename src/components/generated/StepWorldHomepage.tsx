@@ -1448,7 +1448,7 @@ export const StepWorldHomepage = () => {
                       rel="noreferrer"
                       className="text-xs text-slate-600 hover:text-emerald-700 font-medium"
                     >
-                      B-31, Sector 2, Noida, UP (Open in Maps)
+                      G-8, Ground Floor, Sector 3, Noida, UP (Open in Maps)
                     </a>
                   </div>
                 </div>
@@ -1477,7 +1477,7 @@ export const StepWorldHomepage = () => {
                 </div>
                 <h4 className="text-lg font-black text-slate-900">StepWorld Educational Office</h4>
                 <p className="text-xs text-slate-500 mt-1 mb-4">
-                  Visit us in person or get real-time GPS driving directions directly on Google Maps.
+                  G-8, Ground Floor, Sector 3, Noida, Uttar Pradesh. Visit us in person or get real-time GPS driving directions directly on Google Maps.
                 </p>
               </div>
 
@@ -1587,6 +1587,7 @@ export const StepWorldHomepage = () => {
                     <Facebook className="h-5 w-5" />
                   </a>
                 </div>
+                <p className="text-xs text-slate-400 mt-3">Office: G-8, Ground Floor, Sector 3, Noida, UP</p>
               </div>
             </div>
 
